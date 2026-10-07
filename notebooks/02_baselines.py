@@ -20,7 +20,7 @@ import json, os, pathlib, sys
 sys.path.insert(0, str(pathlib.Path.cwd() / "src"))
 sys.path.insert(0, str(pathlib.Path.cwd().parent / "src"))
 
-from labkit import evaluate as ev, generate, report
+from labkit import device, evidence, evaluate as ev, generate, report
 from labkit.config import get_tier
 
 ROOT = pathlib.Path.cwd() if (pathlib.Path.cwd() / "data").exists() else pathlib.Path.cwd().parent
@@ -45,6 +45,10 @@ print(f"target={len(target)}  regression={len(regression)}  tier={TIER.name}")
 # ## 1. Nạp base model (chưa fine-tune)
 
 # %%
+# Repeating NB2 is an explicit pre-training decision. Keep old evidence in baseline_history.
+BASELINE_RERUN = os.environ.get("BASELINE_RERUN", "0") == "1"
+evidence.assert_baseline_writable(ROOT, replace_before_training=BASELINE_RERUN)
+CONTEXT = evidence.experiment_context(ROOT, TIER, precision=device.precision(), eval_limit=EVAL_LIMIT)
 model, tok = generate.load_base(TIER)
 generate.free_memory()
 
@@ -73,7 +77,7 @@ def score_run(model, tok, system_prompt, label):
     return scores, preds, rpreds
 
 
-scores_a, preds_a, _ = score_run(model, tok, generate.NAIVE_PROMPT, "(a) base + naive prompt")
+scores_a, preds_a, rpreds_a = score_run(model, tok, generate.NAIVE_PROMPT, "(a) base + naive prompt")
 scores_b, preds_b, rpreds_b = score_run(model, tok, generate.OPTIMIZED_PROMPT, "(b) base + optimized prompt")
 
 # %% [markdown]
@@ -95,7 +99,11 @@ frozen = {
     "eval_limit": EVAL_LIMIT or None,
     "smoke_mode": bool(EVAL_LIMIT),
 }
-report.write_json(frozen, "baselines_frozen.json", results_dir=ROOT / "results")
+# Reuse all four generation outputs; record_baseline adds no inference.
+manifest = evidence.record_baseline(
+    ROOT, CONTEXT, target, regression, preds_a, preds_b, rpreds_a, rpreds_b, frozen,
+    model=model, tokenizer=tok, replace_before_training=BASELINE_RERUN)
+print("baseline recorded at", manifest["created_at_utc"])
 print(json.dumps(frozen, ensure_ascii=False, indent=2))
 
 # %% [markdown]
@@ -110,3 +118,6 @@ print(json.dumps(frozen, ensure_ascii=False, indent=2))
 # ## ✅ Checkpoint NB2
 # - [ ] `results/baselines_frozen.json` có cả (a) và (b)
 # - [ ] Bạn đã đọc và chấp nhận con số (b) — **trước** khi thấy bất kỳ kết quả train nào
+
+# - [ ] Raw target/regression outputs, experiment_manifest.json and environment.txt are saved
+# - [ ] Before any training only: BASELINE_RERUN=1 archives an intact prior attempt

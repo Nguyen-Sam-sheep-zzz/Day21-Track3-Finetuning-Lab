@@ -15,7 +15,7 @@ import json, os, pathlib, sys
 sys.path.insert(0, str(pathlib.Path.cwd() / "src"))
 sys.path.insert(0, str(pathlib.Path.cwd().parent / "src"))
 
-from labkit import evaluate as ev, generate, report
+from labkit import device, evidence, evaluate as ev, generate, report
 from labkit.config import get_tier
 
 ROOT = pathlib.Path.cwd() if (pathlib.Path.cwd() / "data").exists() else pathlib.Path.cwd().parent
@@ -32,6 +32,9 @@ EVAL_LIMIT = int(os.environ.get("EVAL_LIMIT", "0"))
 if EVAL_LIMIT:
     target, regression = target[:EVAL_LIMIT], regression[:EVAL_LIMIT]
 
+# Verify both full file hashes and ordered slice identity before loading an adapter.
+CONTEXT = evidence.experiment_context(ROOT, TIER, precision=device.precision(), eval_limit=EVAL_LIMIT)
+baseline_raw = evidence.verify_baseline(ROOT, CONTEXT, target, regression)
 frozen = json.loads((ROOT / "results" / "baselines_frozen.json").read_text(encoding="utf-8"))
 base_b = ev.GroupScores(**{k: v for k, v in frozen["baseline_b"].items() if k != "extra"})
 base_a = ev.GroupScores(**{k: v for k, v in frozen["baseline_a"].items() if k != "extra"})
@@ -62,6 +65,8 @@ def score_adapter(adapter_dir: pathlib.Path, system_prompt: str | None, *,
     never from the default.
     """
     model, tok = generate.load_base(TIER, load_in_4bit=load_in_4bit)
+    # A moving model/tokenizer revision would invalidate the comparison, even at the same ID.
+    evidence.verify_model_revisions(ROOT, model, tok)
     model = PeftModel.from_pretrained(model, str(adapter_dir))
     model.eval()
 
@@ -95,6 +100,15 @@ def score_adapter(adapter_dir: pathlib.Path, system_prompt: str | None, *,
 scores_ft, preds_ft, rpreds_ft = score_adapter(ROOT / "adapters" / "correct",
                                                generate.NAIVE_PROMPT)
 print("fine-tune:", scores_ft.as_dict())
+paired = evidence.pair_qualitative(target, baseline_raw["target"], preds_ft)
+paired_summary = evidence.summarize_pairs(paired)
+report.write_json(paired, "paired_qualitative.json", results_dir=ROOT / "results")
+report.write_json(paired_summary, "paired_qualitative_summary.json", results_dir=ROOT / "results")
+print(f"FT losses: {paired_summary['losses']} | wins: {paired_summary['wins']} | ties: {paired_summary['ties']}")
+if not paired_summary["two_loss_examples_available"]:
+    print("Chưa chứng minh yêu cầu >=2 ca FT thua baseline (b); giữ nguyên số thực tế và eval.")
+if not paired_summary["five_examples_available"]:
+    print("Eval slice có dưới 5 ví dụ; chưa đủ bằng chứng định tính chính thức.")
 
 # %% [markdown]
 # ## 2. Bảng so sánh ba baseline
@@ -182,10 +196,15 @@ report.write_json(autopsy, "autopsy.json", results_dir=ROOT / "results")
 # %% [markdown]
 # ## 5. Định tính — bắt buộc có cả ca THUA
 #
-# Chọn 5 ví dụ: ≥2 ca fine-tune thắng, **≥2 ca fine-tune thua**. Chỉ chọn ca thắng là
-# cherry-pick và bị trừ điểm ở mục Evaluation Quality.
+# Ghép cùng ticket/nhãn với baseline (b): delta < 0 mới là ca THUA baseline.
+# Chọn >=5 ví dụ thật, ưu tiên 2 ca thua, 2 ca thắng và một ca hòa nếu có.
+# Nếu thiếu ca thua, ghi rõ số thực tế; không bịa ví dụ hoặc thay eval.
 
 # %%
+print("--- Ví dụ ghép cặp với baseline (b), giữ raw output đầy đủ trong JSON ---")
+print(report.markdown_table(paired_summary["selected_examples"],
+                            ["i", "ticket", "baseline_b_score", "ft_score", "delta"]))
+# Keep the original per-FT output for compatibility. Low ft_score alone is not a loss to (b).
 rows = []
 for i, (p, r) in enumerate(zip(preds_ft, target)):
     s_ft = ev.triage_field_accuracy(p, r["label"])
@@ -203,4 +222,7 @@ report.write_json(rows, "qualitative.json", results_dir=ROOT / "results")
 # - [ ] `results/verdict.json` — có phán quyết pass/fail
 # - [ ] `results/autopsy.json` — ba cấu hình sai đã được chấm trên thang đo tác vụ
 # - [ ] Bảng ba baseline đã đủ
-# - [ ] `results/qualitative.json` — có cả ca thắng lẫn ca thua
+# - [ ] `results/paired_qualitative.json` — ghép đúng toàn bộ ticket/nhãn, có delta với (b)
+# - [ ] `results/paired_qualitative_summary.json` — số ca thắng/thua/hòa thật và >=5 ví dụ
+# - [ ] Nếu có dưới 2 ca thua, báo rõ mục rubric chưa được chứng minh
+# - [ ] `results/qualitative.json` — giữ bảng điểm FT gốc để đối chiếu
