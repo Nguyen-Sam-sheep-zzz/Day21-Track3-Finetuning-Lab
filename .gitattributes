@@ -1,0 +1,4 @@
+# Dataset hashes are defined over the exact upstream LF bytes.
+data/*.jsonl text eol=lf
+# Preserve spacing in captured console evidence.
+results/*.txt -whitespace
