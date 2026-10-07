@@ -40,3 +40,6 @@ hf_cache/
 
 # Checkpoint archives remain local
 *.zip
+
+# Local backups, packaging and supplementary restore notebook
+output/

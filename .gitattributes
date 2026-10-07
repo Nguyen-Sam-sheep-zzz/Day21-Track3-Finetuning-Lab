@@ -2,3 +2,14 @@
 data/*.jsonl text eol=lf
 # Preserve spacing in captured console evidence.
 results/*.txt -whitespace
+
+# Sealed Colab evidence must retain LF bytes in Windows checkouts.
+results/*.json text eol=lf
+results/*.csv text eol=lf
+results/*.txt text eol=lf
+
+# User-pasted attachment is preserved byte-exact in its receipt.
+results/user_pasted_nb3.txt -text
+# Keep packaged report and notebook byte hashes stable on Windows.
+submission/*.md text eol=lf
+notebooks/*.py text eol=lf

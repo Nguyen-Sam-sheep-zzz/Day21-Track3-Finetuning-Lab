@@ -1,0 +1,593 @@
+
+START 2026-10-07T11:24:07.246304+00:00 stage=nb4
+tier=T4  mask=assistant-only  eval_limit=full
+
+========================================================================
+NB4 — three misconfiguration contrasts
+========================================================================
+
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/426 [00:10<1:12:36, 10.25s/it]
+Loading weights:  19%|█▉        | 81/426 [00:10<00:32, 10.58it/s] 
+Loading weights:  23%|██▎       | 99/426 [00:11<00:28, 11.46it/s]
+Loading weights:  25%|██▌       | 108/426 [00:12<00:25, 12.28it/s]
+Loading weights:  27%|██▋       | 114/426 [00:12<00:23, 13.43it/s]
+Loading weights:  28%|██▊       | 119/426 [00:12<00:24, 12.69it/s]
+Loading weights:  29%|██▉       | 123/426 [00:13<00:23, 13.14it/s]
+Loading weights:  30%|███       | 128/426 [00:13<00:19, 15.07it/s]
+Loading weights:  31%|███       | 132/426 [00:13<00:21, 13.39it/s]
+Loading weights:  32%|███▏      | 135/426 [00:14<00:25, 11.24it/s]
+Loading weights:  34%|███▎      | 143/426 [00:14<00:18, 15.46it/s]
+Loading weights:  34%|███▍      | 146/426 [00:14<00:23, 12.12it/s]
+Loading weights:  35%|███▍      | 148/426 [00:15<00:28,  9.65it/s]
+Loading weights:  36%|███▌      | 152/426 [00:15<00:29,  9.18it/s]
+Loading weights:  37%|███▋      | 157/426 [00:16<00:22, 11.75it/s]
+Loading weights:  37%|███▋      | 159/426 [00:16<00:22, 11.81it/s]
+Loading weights:  39%|███▉      | 167/426 [00:16<00:14, 17.90it/s]
+Loading weights:  40%|████      | 171/426 [00:16<00:16, 15.32it/s]
+Loading weights:  41%|████      | 173/426 [00:17<00:21, 11.98it/s]
+Loading weights:  43%|████▎     | 182/426 [00:17<00:12, 19.98it/s]
+Loading weights:  43%|████▎     | 185/426 [00:17<00:15, 15.20it/s]
+Loading weights:  44%|████▍     | 188/426 [00:18<00:18, 12.85it/s]
+Loading weights:  46%|████▌     | 196/426 [00:18<00:11, 19.53it/s]
+Loading weights:  47%|████▋     | 199/426 [00:18<00:15, 14.93it/s]
+Loading weights:  47%|████▋     | 202/426 [00:19<00:17, 12.47it/s]
+Loading weights:  48%|████▊     | 205/426 [00:19<00:20, 10.97it/s]
+Loading weights:  49%|████▉     | 210/426 [00:19<00:15, 13.95it/s]
+Loading weights:  50%|████▉     | 212/426 [00:19<00:15, 13.44it/s]
+Loading weights:  52%|█████▏    | 220/426 [00:20<00:10, 20.25it/s]
+Loading weights:  52%|█████▏    | 223/426 [00:20<00:09, 20.59it/s]
+Loading weights:  53%|█████▎    | 226/426 [00:20<00:17, 11.63it/s]
+Loading weights:  55%|█████▌    | 235/426 [00:20<00:09, 19.38it/s]
+Loading weights:  56%|█████▌    | 239/426 [00:21<00:12, 14.59it/s]
+Loading weights:  57%|█████▋    | 242/426 [00:21<00:13, 13.55it/s]
+Loading weights:  58%|█████▊    | 249/426 [00:21<00:09, 19.00it/s]
+Loading weights:  59%|█████▉    | 252/426 [00:22<00:11, 14.62it/s]
+Loading weights:  60%|█████▉    | 255/426 [00:22<00:14, 12.13it/s]
+Loading weights:  61%|██████    | 258/426 [00:23<00:15, 10.88it/s]
+Loading weights:  62%|██████▏   | 263/426 [00:23<00:11, 13.61it/s]
+Loading weights:  62%|██████▏   | 265/426 [00:23<00:12, 13.31it/s]
+Loading weights:  64%|██████▍   | 273/426 [00:23<00:07, 19.70it/s]
+Loading weights:  65%|██████▍   | 276/426 [00:23<00:07, 21.02it/s]
+Loading weights:  65%|██████▌   | 279/426 [00:24<00:12, 11.35it/s]
+Loading weights:  68%|██████▊   | 288/426 [00:24<00:07, 19.06it/s]
+Loading weights:  69%|██████▊   | 292/426 [00:24<00:08, 15.04it/s]
+Loading weights:  69%|██████▉   | 295/426 [00:25<00:09, 13.41it/s]
+Loading weights:  71%|███████   | 302/426 [00:25<00:06, 18.77it/s]
+Loading weights:  72%|███████▏  | 305/426 [00:25<00:08, 14.60it/s]
+Loading weights:  72%|███████▏  | 308/426 [00:26<00:10, 11.69it/s]
+Loading weights:  73%|███████▎  | 311/426 [00:26<00:12,  9.48it/s]
+Loading weights:  74%|███████▍  | 316/426 [00:27<00:09, 11.78it/s]
+Loading weights:  75%|███████▍  | 318/426 [00:27<00:09, 11.09it/s]
+Loading weights:  77%|███████▋  | 326/426 [00:27<00:05, 16.75it/s]
+Loading weights:  77%|███████▋  | 329/426 [00:27<00:05, 17.09it/s]
+Loading weights:  78%|███████▊  | 331/426 [00:28<00:08, 11.18it/s]
+Loading weights:  78%|███████▊  | 333/426 [00:28<00:09, 10.31it/s]
+Loading weights:  80%|████████  | 341/426 [00:28<00:04, 18.05it/s]
+Loading weights:  81%|████████  | 344/426 [00:28<00:05, 14.30it/s]
+Loading weights:  81%|████████▏ | 347/426 [00:29<00:06, 12.36it/s]
+Loading weights:  83%|████████▎ | 355/426 [00:29<00:03, 19.62it/s]
+Loading weights:  84%|████████▍ | 358/426 [00:29<00:04, 14.92it/s]
+Loading weights:  85%|████████▍ | 361/426 [00:30<00:05, 12.58it/s]
+Loading weights:  85%|████████▌ | 364/426 [00:30<00:05, 11.10it/s]
+Loading weights:  87%|████████▋ | 369/426 [00:30<00:04, 13.92it/s]
+Loading weights:  87%|████████▋ | 371/426 [00:30<00:04, 13.55it/s]
+Loading weights:  89%|████████▉ | 379/426 [00:31<00:02, 19.98it/s]
+Loading weights:  90%|████████▉ | 382/426 [00:31<00:02, 20.81it/s]
+Loading weights:  90%|█████████ | 385/426 [00:31<00:03, 11.60it/s]
+Loading weights:  92%|█████████▏| 394/426 [00:31<00:01, 19.46it/s]
+Loading weights:  93%|█████████▎| 398/426 [00:32<00:01, 14.99it/s]
+Loading weights:  94%|█████████▍| 401/426 [00:32<00:01, 13.79it/s]
+Loading weights:  96%|█████████▌| 408/426 [00:32<00:00, 19.33it/s]
+Loading weights:  96%|█████████▋| 411/426 [00:33<00:01, 14.80it/s]
+Loading weights:  97%|█████████▋| 414/426 [00:33<00:00, 12.32it/s]
+Loading weights:  98%|█████████▊| 417/426 [00:34<00:00, 10.75it/s]
+Loading weights:  99%|█████████▉| 422/426 [00:34<00:00, 13.61it/s]
+Loading weights: 100%|█████████▉| 424/426 [00:34<00:00, 14.29it/s]
+Loading weights: 100%|██████████| 426/426 [00:34<00:00, 12.40it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+| placement | modules | r | trainable |
+|---|---|---|---|
+| text-linear | 12 | 16 | 32464896 |
+| attn-only(q,v) | 2 | 16 | 1835008 |
+| attn-only(q,v) matched | 2 | 283 | 32456704 |
+======================================================================
+RUN attn_only: q,v only · r=matched · LR 10x · 16-bit
+     Mistake #1 (§11.2): attention-only placement, rank raised to *match parameter count*. If rank were the lever, this would win.
+
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/426 [00:09<1:10:10,  9.91s/it]
+Loading weights:  19%|█▉        | 81/426 [00:10<00:31, 10.88it/s] 
+Loading weights:  21%|██▏       | 91/426 [00:10<00:26, 12.41it/s]
+Loading weights:  23%|██▎       | 100/426 [00:11<00:30, 10.77it/s]
+Loading weights:  25%|██▍       | 106/426 [00:12<00:27, 11.47it/s]
+Loading weights:  27%|██▋       | 114/426 [00:12<00:23, 13.40it/s]
+Loading weights:  28%|██▊       | 118/426 [00:12<00:23, 12.94it/s]
+Loading weights:  29%|██▊       | 122/426 [00:13<00:24, 12.51it/s]
+Loading weights:  30%|███       | 129/426 [00:13<00:19, 15.63it/s]
+Loading weights:  31%|███       | 133/426 [00:13<00:21, 13.83it/s]
+Loading weights:  32%|███▏      | 136/426 [00:14<00:22, 12.82it/s]
+Loading weights:  34%|███▎      | 143/426 [00:14<00:16, 17.26it/s]
+Loading weights:  34%|███▍      | 146/426 [00:14<00:19, 14.05it/s]
+Loading weights:  35%|███▍      | 149/426 [00:15<00:22, 12.11it/s]
+Loading weights:  36%|███▌      | 152/426 [00:15<00:25, 10.85it/s]
+Loading weights:  37%|███▋      | 157/426 [00:15<00:19, 13.61it/s]
+Loading weights:  37%|███▋      | 159/426 [00:15<00:20, 13.18it/s]
+Loading weights:  39%|███▉      | 167/426 [00:16<00:13, 19.74it/s]
+Loading weights:  40%|███▉      | 170/426 [00:16<00:12, 20.11it/s]
+Loading weights:  41%|████      | 173/426 [00:16<00:21, 11.52it/s]
+Loading weights:  43%|████▎     | 182/426 [00:16<00:12, 19.13it/s]
+Loading weights:  44%|████▎     | 186/426 [00:17<00:16, 14.67it/s]
+Loading weights:  44%|████▍     | 189/426 [00:17<00:17, 13.52it/s]
+Loading weights:  46%|████▌     | 196/426 [00:17<00:12, 19.04it/s]
+Loading weights:  47%|████▋     | 199/426 [00:18<00:15, 14.54it/s]
+Loading weights:  47%|████▋     | 202/426 [00:18<00:18, 12.13it/s]
+Loading weights:  48%|████▊     | 205/426 [00:19<00:20, 10.86it/s]
+Loading weights:  49%|████▉     | 210/426 [00:19<00:15, 13.67it/s]
+Loading weights:  50%|████▉     | 212/426 [00:19<00:16, 13.22it/s]
+Loading weights:  52%|█████▏    | 220/426 [00:19<00:10, 20.03it/s]
+Loading weights:  52%|█████▏    | 223/426 [00:19<00:09, 20.31it/s]
+Loading weights:  53%|█████▎    | 226/426 [00:20<00:17, 11.58it/s]
+Loading weights:  55%|█████▌    | 235/426 [00:20<00:09, 19.34it/s]
+Loading weights:  56%|█████▌    | 239/426 [00:20<00:12, 14.65it/s]
+Loading weights:  57%|█████▋    | 242/426 [00:21<00:13, 13.45it/s]
+Loading weights:  58%|█████▊    | 249/426 [00:21<00:09, 18.82it/s]
+Loading weights:  59%|█████▉    | 252/426 [00:21<00:12, 14.21it/s]
+Loading weights:  60%|█████▉    | 255/426 [00:22<00:15, 11.10it/s]
+Loading weights:  61%|██████    | 258/426 [00:22<00:17,  9.37it/s]
+Loading weights:  62%|██████▏   | 263/426 [00:23<00:13, 11.68it/s]
+Loading weights:  62%|██████▏   | 265/426 [00:23<00:14, 11.18it/s]
+Loading weights:  64%|██████▍   | 273/426 [00:23<00:09, 16.61it/s]
+Loading weights:  65%|██████▍   | 276/426 [00:23<00:08, 17.64it/s]
+Loading weights:  65%|██████▌   | 279/426 [00:24<00:14, 10.15it/s]
+Loading weights:  68%|██████▊   | 288/426 [00:24<00:07, 17.61it/s]
+Loading weights:  69%|██████▊   | 292/426 [00:24<00:09, 14.73it/s]
+Loading weights:  69%|██████▉   | 295/426 [00:25<00:09, 13.14it/s]
+Loading weights:  71%|███████   | 302/426 [00:25<00:06, 18.62it/s]
+Loading weights:  72%|███████▏  | 305/426 [00:25<00:08, 14.44it/s]
+Loading weights:  72%|███████▏  | 308/426 [00:26<00:09, 12.23it/s]
+Loading weights:  73%|███████▎  | 311/426 [00:26<00:10, 10.91it/s]
+Loading weights:  74%|███████▍  | 316/426 [00:26<00:07, 13.89it/s]
+Loading weights:  75%|███████▍  | 318/426 [00:26<00:08, 13.37it/s]
+Loading weights:  77%|███████▋  | 326/426 [00:27<00:04, 20.30it/s]
+Loading weights:  77%|███████▋  | 329/426 [00:27<00:04, 20.76it/s]
+Loading weights:  78%|███████▊  | 332/426 [00:27<00:08, 11.72it/s]
+Loading weights:  80%|████████  | 341/426 [00:27<00:04, 19.56it/s]
+Loading weights:  81%|████████  | 345/426 [00:28<00:05, 15.09it/s]
+Loading weights:  82%|████████▏ | 348/426 [00:28<00:05, 13.83it/s]
+Loading weights:  83%|████████▎ | 355/426 [00:28<00:03, 19.35it/s]
+Loading weights:  84%|████████▍ | 358/426 [00:29<00:04, 14.95it/s]
+Loading weights:  85%|████████▍ | 361/426 [00:29<00:05, 12.66it/s]
+Loading weights:  85%|████████▌ | 364/426 [00:29<00:05, 11.17it/s]
+Loading weights:  87%|████████▋ | 369/426 [00:30<00:04, 13.95it/s]
+Loading weights:  87%|████████▋ | 371/426 [00:30<00:04, 13.47it/s]
+Loading weights:  89%|████████▉ | 379/426 [00:30<00:02, 20.00it/s]
+Loading weights:  90%|████████▉ | 382/426 [00:30<00:02, 20.80it/s]
+Loading weights:  90%|█████████ | 385/426 [00:31<00:03, 11.56it/s]
+Loading weights:  92%|█████████▏| 394/426 [00:31<00:01, 19.30it/s]
+Loading weights:  93%|█████████▎| 398/426 [00:31<00:01, 15.20it/s]
+Loading weights:  94%|█████████▍| 401/426 [00:32<00:01, 13.57it/s]
+Loading weights:  96%|█████████▌| 408/426 [00:32<00:00, 19.10it/s]
+Loading weights:  96%|█████████▋| 411/426 [00:32<00:01, 14.63it/s]
+Loading weights:  97%|█████████▋| 414/426 [00:33<00:00, 12.25it/s]
+Loading weights:  98%|█████████▊| 417/426 [00:33<00:00, 10.86it/s]
+Loading weights:  99%|█████████▉| 422/426 [00:33<00:00, 13.80it/s]
+Loading weights: 100%|█████████▉| 424/426 [00:33<00:00, 14.35it/s]
+Loading weights: 100%|██████████| 426/426 [00:33<00:00, 12.59it/s]
+  train_ds: Dataset({
+    features: ['input_ids', 'labels', 'attention_mask'],
+    num_rows: 225
+})
+  matched rank for attn_only: r=283 (alpha=566)
+
+Truncating train dataset:   0%|          | 0/225 [00:00<?, ? examples/s]
+Truncating train dataset: 100%|██████████| 225/225 [00:00<00:00, 5442.37 examples/s]
+
+Dropping fully masked examples from train dataset:   0%|          | 0/225 [00:00<?, ? examples/s]
+Dropping fully masked examples from train dataset: 100%|██████████| 225/225 [00:00<00:00, 30629.27 examples/s]
+[transformers] The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'eos_token_id': 248046}.
+
+  0%|          | 0/30 [00:00<?, ?it/s][transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+
+  3%|▎         | 1/30 [00:12<06:14, 12.92s/it]
+  7%|▋         | 2/30 [00:21<04:53, 10.48s/it]
+ 10%|█         | 3/30 [00:31<04:30, 10.02s/it]
+ 13%|█▎        | 4/30 [00:40<04:13,  9.77s/it]
+ 17%|█▋        | 5/30 [00:50<04:02,  9.69s/it]
+                                              
+{'loss': '2.163', 'grad_norm': '5.765', 'learning_rate': '9.966e-05', 'entropy': '1.177', 'num_tokens': '7479', 'mean_token_accuracy': '0.6559', 'epoch': '0.3556'}
+
+ 17%|█▋        | 5/30 [00:50<04:02,  9.69s/it]
+ 20%|██        | 6/30 [00:59<03:46,  9.45s/it]
+ 23%|██▎       | 7/30 [01:08<03:37,  9.46s/it]
+ 27%|██▋       | 8/30 [01:18<03:28,  9.46s/it]
+ 30%|███       | 9/30 [01:27<03:19,  9.50s/it]
+ 33%|███▎      | 10/30 [01:36<03:04,  9.23s/it]
+                                               
+{'loss': '0.8271', 'grad_norm': '1.842', 'learning_rate': '8.83e-05', 'entropy': '0.937', 'num_tokens': '1.49e+04', 'mean_token_accuracy': '0.8416', 'epoch': '0.7111'}
+
+ 33%|███▎      | 10/30 [01:36<03:04,  9.23s/it]
+ 37%|███▋      | 11/30 [01:45<02:58,  9.38s/it]
+ 40%|████      | 12/30 [01:55<02:48,  9.36s/it]
+ 43%|████▎     | 13/30 [02:04<02:38,  9.31s/it]
+ 47%|████▋     | 14/30 [02:13<02:28,  9.27s/it]
+ 50%|█████     | 15/30 [02:14<01:39,  6.64s/it]
+                                               
+{'loss': '0.1467', 'grad_norm': '1.226', 'learning_rate': '6.434e-05', 'entropy': '0.2844', 'num_tokens': '2.095e+04', 'mean_token_accuracy': '0.9584', 'epoch': '1'}
+
+ 50%|█████     | 15/30 [02:14<01:39,  6.64s/it]
+ 53%|█████▎    | 16/30 [02:23<01:44,  7.49s/it]
+ 57%|█████▋    | 17/30 [02:33<01:45,  8.08s/it]
+ 60%|██████    | 18/30 [02:42<01:43,  8.58s/it]
+ 63%|██████▎   | 19/30 [02:51<01:35,  8.68s/it]
+ 67%|██████▋   | 20/30 [03:01<01:30,  9.01s/it]
+                                               
+{'loss': '0.03995', 'grad_norm': '0.8496', 'learning_rate': '3.566e-05', 'entropy': '0.06559', 'num_tokens': '2.843e+04', 'mean_token_accuracy': '0.9879', 'epoch': '1.356'}
+
+ 67%|██████▋   | 20/30 [03:01<01:30,  9.01s/it]
+ 70%|███████   | 21/30 [03:11<01:22,  9.15s/it]
+ 73%|███████▎  | 22/30 [03:20<01:13,  9.23s/it]
+ 77%|███████▋  | 23/30 [03:29<01:04,  9.17s/it]
+ 80%|████████  | 24/30 [03:38<00:55,  9.18s/it]
+ 83%|████████▎ | 25/30 [03:48<00:46,  9.28s/it]
+                                               
+{'loss': '0.02115', 'grad_norm': '0.1911', 'learning_rate': '1.17e-05', 'entropy': '0.03148', 'num_tokens': '3.59e+04', 'mean_token_accuracy': '0.9918', 'epoch': '1.711'}
+
+ 83%|████████▎ | 25/30 [03:48<00:46,  9.28s/it]
+ 87%|████████▋ | 26/30 [03:57<00:37,  9.41s/it]
+ 90%|█████████ | 27/30 [04:06<00:27,  9.23s/it]
+ 93%|█████████▎| 28/30 [04:16<00:18,  9.34s/it]
+ 97%|█████████▋| 29/30 [04:25<00:09,  9.38s/it]
+100%|██████████| 30/30 [04:26<00:00,  6.73s/it]
+                                               
+{'loss': '0.02572', 'grad_norm': 'nan', 'learning_rate': '3.381e-07', 'entropy': '0.02248', 'num_tokens': '4.19e+04', 'mean_token_accuracy': '0.9942', 'epoch': '2'}
+
+100%|██████████| 30/30 [04:26<00:00,  6.73s/it]
+                                               
+{'train_runtime': '266.3', 'train_samples_per_second': '1.802', 'train_steps_per_second': '0.113', 'train_loss': '0.5373', 'epoch': '2'}
+
+100%|██████████| 30/30 [04:26<00:00,  6.73s/it]
+100%|██████████| 30/30 [04:26<00:00,  8.88s/it]
+======================================================================
+RUN wrong_lr: all-linear · r=16 · LR 1x (full-FT scale) · 16-bit
+     Mistake #2 (§11.3): a full-fine-tune learning rate applied to LoRA.
+
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/426 [00:10<1:12:23, 10.22s/it]
+Loading weights:  19%|█▉        | 81/426 [00:10<00:32, 10.66it/s] 
+Loading weights:  24%|██▎       | 101/426 [00:11<00:27, 11.73it/s]
+Loading weights:  26%|██▌       | 110/426 [00:12<00:24, 12.77it/s]
+Loading weights:  27%|██▋       | 117/426 [00:12<00:22, 13.54it/s]
+Loading weights:  29%|██▊       | 122/426 [00:13<00:24, 12.46it/s]
+Loading weights:  30%|███       | 129/426 [00:13<00:20, 14.60it/s]
+Loading weights:  31%|███       | 133/426 [00:13<00:22, 13.21it/s]
+Loading weights:  32%|███▏      | 136/426 [00:14<00:22, 12.79it/s]
+Loading weights:  34%|███▎      | 143/426 [00:14<00:17, 16.47it/s]
+Loading weights:  35%|███▍      | 147/426 [00:14<00:19, 14.02it/s]
+Loading weights:  35%|███▌      | 150/426 [00:14<00:21, 12.90it/s]
+Loading weights:  36%|███▌      | 152/426 [00:15<00:27,  9.81it/s]
+Loading weights:  37%|███▋      | 157/426 [00:15<00:22, 11.98it/s]
+Loading weights:  37%|███▋      | 159/426 [00:15<00:24, 10.75it/s]
+Loading weights:  39%|███▉      | 167/426 [00:16<00:15, 16.73it/s]
+Loading weights:  40%|███▉      | 170/426 [00:16<00:15, 16.28it/s]
+Loading weights:  41%|████      | 173/426 [00:17<00:26,  9.50it/s]
+Loading weights:  42%|████▏     | 181/426 [00:17<00:15, 15.54it/s]
+Loading weights:  43%|████▎     | 184/426 [00:17<00:14, 16.17it/s]
+Loading weights:  44%|████▍     | 187/426 [00:18<00:21, 10.87it/s]
+Loading weights:  46%|████▌     | 196/426 [00:18<00:12, 18.07it/s]
+Loading weights:  47%|████▋     | 200/426 [00:18<00:15, 14.62it/s]
+Loading weights:  48%|████▊     | 203/426 [00:18<00:17, 12.92it/s]
+Loading weights:  48%|████▊     | 206/426 [00:19<00:21, 10.46it/s]
+Loading weights:  49%|████▉     | 210/426 [00:19<00:16, 13.29it/s]
+Loading weights:  50%|█████     | 213/426 [00:19<00:15, 13.70it/s]
+Loading weights:  52%|█████▏    | 220/426 [00:19<00:10, 20.07it/s]
+Loading weights:  52%|█████▏    | 223/426 [00:20<00:10, 19.51it/s]
+Loading weights:  53%|█████▎    | 226/426 [00:20<00:17, 11.62it/s]
+Loading weights:  55%|█████▍    | 234/426 [00:20<00:09, 19.45it/s]
+Loading weights:  56%|█████▌    | 238/426 [00:21<00:12, 15.06it/s]
+Loading weights:  57%|█████▋    | 241/426 [00:21<00:14, 12.61it/s]
+Loading weights:  58%|█████▊    | 249/426 [00:21<00:09, 19.17it/s]
+Loading weights:  59%|█████▉    | 253/426 [00:22<00:11, 14.92it/s]
+Loading weights:  60%|██████    | 256/426 [00:22<00:13, 12.59it/s]
+Loading weights:  61%|██████    | 258/426 [00:22<00:16, 10.45it/s]
+Loading weights:  62%|██████▏   | 263/426 [00:23<00:12, 13.51it/s]
+Loading weights:  62%|██████▏   | 265/426 [00:23<00:12, 13.37it/s]
+Loading weights:  64%|██████▍   | 273/426 [00:23<00:07, 19.76it/s]
+Loading weights:  65%|██████▍   | 276/426 [00:23<00:07, 20.97it/s]
+Loading weights:  65%|██████▌   | 279/426 [00:24<00:12, 11.37it/s]
+Loading weights:  68%|██████▊   | 288/426 [00:24<00:07, 19.13it/s]
+Loading weights:  69%|██████▊   | 292/426 [00:24<00:08, 15.05it/s]
+Loading weights:  69%|██████▉   | 295/426 [00:25<00:09, 13.43it/s]
+Loading weights:  71%|███████   | 302/426 [00:25<00:06, 18.96it/s]
+Loading weights:  72%|███████▏  | 305/426 [00:25<00:08, 14.61it/s]
+Loading weights:  72%|███████▏  | 308/426 [00:26<00:09, 12.27it/s]
+Loading weights:  73%|███████▎  | 311/426 [00:26<00:10, 10.75it/s]
+Loading weights:  74%|███████▍  | 316/426 [00:26<00:07, 13.87it/s]
+Loading weights:  75%|███████▍  | 318/426 [00:26<00:08, 13.47it/s]
+Loading weights:  77%|███████▋  | 326/426 [00:27<00:04, 20.48it/s]
+Loading weights:  77%|███████▋  | 329/426 [00:27<00:04, 20.60it/s]
+Loading weights:  78%|███████▊  | 332/426 [00:27<00:09, 10.38it/s]
+Loading weights:  80%|███████▉  | 340/426 [00:28<00:05, 16.95it/s]
+Loading weights:  81%|████████  | 344/426 [00:28<00:06, 12.74it/s]
+Loading weights:  81%|████████▏ | 347/426 [00:29<00:07, 10.40it/s]
+Loading weights:  83%|████████▎ | 355/426 [00:29<00:04, 15.93it/s]
+Loading weights:  84%|████████▍ | 358/426 [00:29<00:05, 12.72it/s]
+Loading weights:  85%|████████▍ | 361/426 [00:30<00:05, 11.59it/s]
+Loading weights:  85%|████████▌ | 364/426 [00:30<00:05, 10.66it/s]
+Loading weights:  87%|████████▋ | 369/426 [00:30<00:04, 13.74it/s]
+Loading weights:  87%|████████▋ | 371/426 [00:30<00:04, 12.58it/s]
+Loading weights:  89%|████████▉ | 379/426 [00:30<00:02, 20.45it/s]
+Loading weights:  90%|████████▉ | 382/426 [00:31<00:02, 19.92it/s]
+Loading weights:  90%|█████████ | 385/426 [00:31<00:03, 11.60it/s]
+Loading weights:  92%|█████████▏| 394/426 [00:31<00:01, 19.04it/s]
+Loading weights:  93%|█████████▎| 397/426 [00:32<00:01, 15.41it/s]
+Loading weights:  94%|█████████▍| 400/426 [00:32<00:01, 13.01it/s]
+Loading weights:  96%|█████████▌| 408/426 [00:32<00:00, 19.59it/s]
+Loading weights:  96%|█████████▋| 411/426 [00:33<00:01, 14.96it/s]
+Loading weights:  97%|█████████▋| 414/426 [00:33<00:00, 12.37it/s]
+Loading weights:  98%|█████████▊| 417/426 [00:33<00:00, 10.74it/s]
+Loading weights:  99%|█████████▉| 422/426 [00:34<00:00, 13.64it/s]
+Loading weights: 100%|█████████▉| 424/426 [00:34<00:00, 14.38it/s]
+Loading weights: 100%|██████████| 426/426 [00:34<00:00, 12.44it/s]
+
+Truncating train dataset:   0%|          | 0/225 [00:00<?, ? examples/s]
+Truncating train dataset: 100%|██████████| 225/225 [00:00<00:00, 8112.98 examples/s]
+
+Dropping fully masked examples from train dataset:   0%|          | 0/225 [00:00<?, ? examples/s]
+Dropping fully masked examples from train dataset: 100%|██████████| 225/225 [00:00<00:00, 50192.45 examples/s]
+[transformers] The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'eos_token_id': 248046}.
+
+  0%|          | 0/30 [00:00<?, ?it/s]
+  3%|▎         | 1/30 [00:14<06:49, 14.13s/it]
+  7%|▋         | 2/30 [00:28<06:36, 14.17s/it]
+ 10%|█         | 3/30 [00:42<06:23, 14.19s/it]
+ 13%|█▎        | 4/30 [00:56<06:11, 14.28s/it]
+ 17%|█▋        | 5/30 [01:10<05:53, 14.13s/it]
+                                              
+{'loss': '2.163', 'grad_norm': 'nan', 'learning_rate': '9.966e-06', 'entropy': '1.177', 'num_tokens': '7479', 'mean_token_accuracy': '0.6559', 'epoch': '0.3556'}
+
+ 17%|█▋        | 5/30 [01:10<05:53, 14.13s/it]
+ 20%|██        | 6/30 [01:24<05:37, 14.08s/it]
+ 23%|██▎       | 7/30 [01:38<05:19, 13.90s/it]
+ 27%|██▋       | 8/30 [01:52<05:07, 13.96s/it]
+ 30%|███       | 9/30 [02:06<04:51, 13.89s/it]
+ 33%|███▎      | 10/30 [02:20<04:38, 13.94s/it]
+                                               
+{'loss': '2.066', 'grad_norm': '5.107', 'learning_rate': '8.83e-06', 'entropy': '1.198', 'num_tokens': '1.49e+04', 'mean_token_accuracy': '0.6802', 'epoch': '0.7111'}
+
+ 33%|███▎      | 10/30 [02:20<04:38, 13.94s/it]
+ 37%|███▋      | 11/30 [02:34<04:28, 14.15s/it]
+ 40%|████      | 12/30 [02:48<04:13, 14.07s/it]
+ 43%|████▎     | 13/30 [03:02<03:57, 13.98s/it]
+ 47%|████▋     | 14/30 [03:16<03:45, 14.10s/it]
+ 50%|█████     | 15/30 [03:17<02:31, 10.10s/it]
+                                               
+{'loss': '1.606', 'grad_norm': 'nan', 'learning_rate': '6.434e-06', 'entropy': '1.178', 'num_tokens': '2.095e+04', 'mean_token_accuracy': '0.7176', 'epoch': '1'}
+
+ 50%|█████     | 15/30 [03:17<02:31, 10.10s/it]
+ 53%|█████▎    | 16/30 [03:31<02:38, 11.32s/it]
+ 57%|█████▋    | 17/30 [03:45<02:36, 12.07s/it]
+ 60%|██████    | 18/30 [03:59<02:32, 12.73s/it]
+ 63%|██████▎   | 19/30 [04:14<02:24, 13.18s/it]
+ 67%|██████▋   | 20/30 [04:28<02:15, 13.51s/it]
+                                               
+{'loss': '1.326', 'grad_norm': '4.628', 'learning_rate': '3.566e-06', 'entropy': '1.103', 'num_tokens': '2.843e+04', 'mean_token_accuracy': '0.7564', 'epoch': '1.356'}
+
+ 67%|██████▋   | 20/30 [04:28<02:15, 13.51s/it]
+ 70%|███████   | 21/30 [04:42<02:02, 13.65s/it]
+ 73%|███████▎  | 22/30 [04:56<01:50, 13.86s/it]
+ 77%|███████▋  | 23/30 [05:10<01:37, 13.86s/it]
+ 80%|████████  | 24/30 [05:24<01:23, 13.95s/it]
+ 83%|████████▎ | 25/30 [05:38<01:09, 13.89s/it]
+                                               
+{'loss': '1.141', 'grad_norm': '4.213', 'learning_rate': '1.17e-06', 'entropy': '1.076', 'num_tokens': '3.59e+04', 'mean_token_accuracy': '0.7982', 'epoch': '1.711'}
+
+ 83%|████████▎ | 25/30 [05:38<01:09, 13.89s/it]
+ 87%|████████▋ | 26/30 [05:53<00:56, 14.14s/it]
+ 90%|█████████ | 27/30 [06:07<00:42, 14.11s/it]
+ 93%|█████████▎| 28/30 [06:21<00:28, 14.16s/it]
+ 97%|█████████▋| 29/30 [06:35<00:14, 14.15s/it]
+100%|██████████| 30/30 [06:36<00:00, 10.15s/it]
+                                               
+{'loss': '1.119', 'grad_norm': 'nan', 'learning_rate': '3.381e-08', 'entropy': '1.068', 'num_tokens': '4.19e+04', 'mean_token_accuracy': '0.7909', 'epoch': '2'}
+
+100%|██████████| 30/30 [06:36<00:00, 10.15s/it]
+                                               
+{'train_runtime': '396.5', 'train_samples_per_second': '1.21', 'train_steps_per_second': '0.076', 'train_loss': '1.57', 'epoch': '2'}
+
+100%|██████████| 30/30 [06:36<00:00, 10.15s/it]
+100%|██████████| 30/30 [06:36<00:00, 13.22s/it]
+======================================================================
+RUN qlora: all-linear · r=16 · LR 10x · 4-bit QLoRA
+     The vendor says do NOT use QLoRA on Qwen3.5 (§13). Measure the cost yourself instead of taking either side on faith.
+
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/426 [00:05<41:16,  5.83s/it]
+Loading weights:   2%|▏         | 8/426 [00:06<03:54,  1.78it/s]
+Loading weights:   2%|▏         | 10/426 [00:06<02:56,  2.36it/s]
+Loading weights:   3%|▎         | 12/426 [00:06<02:22,  2.91it/s]
+Loading weights:   3%|▎         | 14/426 [00:06<02:01,  3.40it/s]
+Loading weights:   5%|▌         | 22/426 [00:06<00:50,  8.06it/s]
+Loading weights:   6%|▌         | 25/426 [00:07<00:42,  9.42it/s]
+Loading weights:   7%|▋         | 28/426 [00:07<00:49,  8.01it/s]
+Loading weights:   8%|▊         | 36/426 [00:07<00:28, 13.70it/s]
+Loading weights:   9%|▉         | 39/426 [00:07<00:26, 14.60it/s]
+Loading weights:  10%|▉         | 42/426 [00:08<00:36, 10.41it/s]
+Loading weights:  11%|█         | 46/426 [00:08<00:29, 12.94it/s]
+Loading weights:  12%|█▏        | 51/426 [00:08<00:23, 16.02it/s]
+Loading weights:  13%|█▎        | 54/426 [00:09<00:23, 15.99it/s]
+Loading weights:  14%|█▍        | 61/426 [00:09<00:16, 21.67it/s]
+Loading weights:  15%|█▌        | 64/426 [00:09<00:17, 21.22it/s]
+Loading weights:  16%|█▌        | 67/426 [00:09<00:28, 12.61it/s]
+Loading weights:  18%|█▊        | 75/426 [00:10<00:18, 19.14it/s]
+Loading weights:  18%|█▊        | 78/426 [00:10<00:18, 18.89it/s]
+Loading weights:  19%|█▉        | 81/426 [00:10<00:27, 12.32it/s]
+Loading weights:  21%|██        | 89/426 [00:10<00:18, 18.62it/s]
+Loading weights:  22%|██▏       | 92/426 [00:11<00:17, 18.56it/s]
+Loading weights:  22%|██▏       | 95/426 [00:11<00:27, 12.01it/s]
+Loading weights:  23%|██▎       | 98/426 [00:11<00:25, 12.93it/s]
+Loading weights:  23%|██▎       | 100/426 [00:12<00:31, 10.29it/s]
+Loading weights:  24%|██▍       | 104/426 [00:12<00:23, 13.79it/s]
+Loading weights:  25%|██▌       | 107/426 [00:12<00:22, 14.32it/s]
+Loading weights:  27%|██▋       | 114/426 [00:12<00:14, 21.06it/s]
+Loading weights:  27%|██▋       | 117/426 [00:12<00:15, 20.56it/s]
+Loading weights:  28%|██▊       | 120/426 [00:13<00:25, 12.13it/s]
+Loading weights:  30%|███       | 128/426 [00:13<00:15, 19.00it/s]
+Loading weights:  31%|███       | 131/426 [00:13<00:15, 18.98it/s]
+Loading weights:  31%|███▏      | 134/426 [00:14<00:28, 10.09it/s]
+Loading weights:  33%|███▎      | 142/426 [00:14<00:18, 14.95it/s]
+Loading weights:  34%|███▍      | 145/426 [00:14<00:18, 14.89it/s]
+Loading weights:  35%|███▍      | 148/426 [00:15<00:30,  9.19it/s]
+Loading weights:  35%|███▌      | 151/426 [00:15<00:28,  9.58it/s]
+Loading weights:  36%|███▌      | 153/426 [00:16<00:33,  8.25it/s]
+Loading weights:  37%|███▋      | 157/426 [00:16<00:23, 11.34it/s]
+Loading weights:  37%|███▋      | 159/426 [00:16<00:23, 11.52it/s]
+Loading weights:  39%|███▉      | 167/426 [00:16<00:13, 18.94it/s]
+Loading weights:  40%|███▉      | 170/426 [00:16<00:13, 18.98it/s]
+Loading weights:  41%|████      | 173/426 [00:17<00:21, 11.73it/s]
+Loading weights:  42%|████▏     | 181/426 [00:17<00:13, 18.52it/s]
+Loading weights:  43%|████▎     | 184/426 [00:17<00:13, 18.61it/s]
+Loading weights:  44%|████▍     | 187/426 [00:18<00:19, 12.03it/s]
+Loading weights:  46%|████▌     | 195/426 [00:18<00:12, 18.32it/s]
+Loading weights:  46%|████▋     | 198/426 [00:18<00:12, 18.69it/s]
+Loading weights:  47%|████▋     | 201/426 [00:19<00:19, 11.81it/s]
+Loading weights:  48%|████▊     | 204/426 [00:19<00:17, 12.47it/s]
+Loading weights:  48%|████▊     | 206/426 [00:19<00:22,  9.76it/s]
+Loading weights:  50%|████▉     | 212/426 [00:20<00:16, 13.12it/s]
+Loading weights:  52%|█████▏    | 220/426 [00:20<00:10, 19.26it/s]
+Loading weights:  52%|█████▏    | 223/426 [00:20<00:10, 19.43it/s]
+Loading weights:  53%|█████▎    | 226/426 [00:21<00:16, 12.21it/s]
+Loading weights:  55%|█████▍    | 234/426 [00:21<00:10, 18.56it/s]
+Loading weights:  56%|█████▌    | 237/426 [00:21<00:10, 18.65it/s]
+Loading weights:  56%|█████▋    | 240/426 [00:21<00:15, 11.68it/s]
+Loading weights:  58%|█████▊    | 248/426 [00:22<00:09, 17.85it/s]
+Loading weights:  59%|█████▉    | 251/426 [00:22<00:09, 18.15it/s]
+Loading weights:  60%|█████▉    | 254/426 [00:22<00:15, 11.39it/s]
+Loading weights:  60%|██████    | 257/426 [00:23<00:13, 12.20it/s]
+Loading weights:  61%|██████    | 259/426 [00:23<00:16,  9.87it/s]
+Loading weights:  62%|██████▏   | 263/426 [00:23<00:12, 13.20it/s]
+Loading weights:  62%|██████▏   | 266/426 [00:23<00:11, 14.07it/s]
+Loading weights:  64%|██████▍   | 273/426 [00:23<00:07, 20.74it/s]
+Loading weights:  65%|██████▍   | 276/426 [00:24<00:07, 20.38it/s]
+Loading weights:  65%|██████▌   | 279/426 [00:24<00:12, 11.84it/s]
+Loading weights:  67%|██████▋   | 287/426 [00:24<00:07, 18.61it/s]
+Loading weights:  68%|██████▊   | 290/426 [00:24<00:07, 18.76it/s]
+Loading weights:  69%|██████▉   | 293/426 [00:25<00:11, 12.03it/s]
+Loading weights:  71%|███████   | 301/426 [00:25<00:06, 18.33it/s]
+Loading weights:  71%|███████▏  | 304/426 [00:25<00:06, 18.51it/s]
+Loading weights:  72%|███████▏  | 307/426 [00:26<00:11, 10.65it/s]
+Loading weights:  73%|███████▎  | 310/426 [00:26<00:10, 10.89it/s]
+Loading weights:  73%|███████▎  | 312/426 [00:27<00:14,  8.12it/s]
+Loading weights:  74%|███████▍  | 316/426 [00:27<00:10, 10.92it/s]
+Loading weights:  75%|███████▍  | 318/426 [00:27<00:10, 10.46it/s]
+Loading weights:  77%|███████▋  | 326/426 [00:27<00:06, 16.11it/s]
+Loading weights:  77%|███████▋  | 329/426 [00:28<00:06, 15.86it/s]
+Loading weights:  78%|███████▊  | 331/426 [00:28<00:08, 11.54it/s]
+Loading weights:  78%|███████▊  | 333/426 [00:28<00:08, 11.45it/s]
+Loading weights:  80%|███████▉  | 340/426 [00:28<00:04, 17.75it/s]
+Loading weights:  81%|████████  | 343/426 [00:29<00:04, 18.09it/s]
+Loading weights:  81%|████████  | 346/426 [00:29<00:06, 11.59it/s]
+Loading weights:  83%|████████▎ | 354/426 [00:29<00:03, 18.45it/s]
+Loading weights:  84%|████████▍ | 357/426 [00:29<00:03, 18.57it/s]
+Loading weights:  85%|████████▍ | 360/426 [00:30<00:05, 12.11it/s]
+Loading weights:  85%|████████▌ | 363/426 [00:30<00:04, 12.98it/s]
+Loading weights:  86%|████████▌ | 365/426 [00:31<00:05, 10.32it/s]
+Loading weights:  87%|████████▋ | 371/426 [00:31<00:03, 13.80it/s]
+Loading weights:  89%|████████▉ | 379/426 [00:31<00:02, 19.99it/s]
+Loading weights:  90%|████████▉ | 382/426 [00:31<00:02, 19.62it/s]
+Loading weights:  90%|█████████ | 385/426 [00:32<00:03, 12.37it/s]
+Loading weights:  92%|█████████▏| 393/426 [00:32<00:01, 18.75it/s]
+Loading weights:  93%|█████████▎| 396/426 [00:32<00:01, 18.84it/s]
+Loading weights:  94%|█████████▎| 399/426 [00:33<00:02, 12.16it/s]
+Loading weights:  96%|█████████▌| 407/426 [00:33<00:01, 18.37it/s]
+Loading weights:  96%|█████████▌| 410/426 [00:33<00:00, 18.72it/s]
+Loading weights:  97%|█████████▋| 413/426 [00:33<00:01, 11.80it/s]
+Loading weights:  98%|█████████▊| 416/426 [00:34<00:00, 12.55it/s]
+Loading weights:  98%|█████████▊| 418/426 [00:34<00:00,  9.99it/s]
+Loading weights:  99%|█████████▉| 422/426 [00:34<00:00, 13.43it/s]
+Loading weights: 100%|█████████▉| 425/426 [00:34<00:00, 14.16it/s]
+Loading weights: 100%|██████████| 426/426 [00:34<00:00, 12.23it/s]
+
+Truncating train dataset:   0%|          | 0/225 [00:00<?, ? examples/s]
+Truncating train dataset: 100%|██████████| 225/225 [00:00<00:00, 8569.60 examples/s]
+
+Dropping fully masked examples from train dataset:   0%|          | 0/225 [00:00<?, ? examples/s]
+Dropping fully masked examples from train dataset: 100%|██████████| 225/225 [00:00<00:00, 47349.27 examples/s]
+  precision fix: recast 496/496 trainable tensors bf16 -> fp32 for the fp16 GradScaler
+[transformers] The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'eos_token_id': 248046}.
+
+  0%|          | 0/30 [00:00<?, ?it/s]
+  3%|▎         | 1/30 [00:16<08:09, 16.89s/it]
+  7%|▋         | 2/30 [00:33<07:47, 16.71s/it]
+ 10%|█         | 3/30 [00:50<07:33, 16.81s/it]
+ 13%|█▎        | 4/30 [01:08<07:25, 17.14s/it]
+ 17%|█▋        | 5/30 [01:24<07:00, 16.81s/it]
+                                              
+{'loss': '2.155', 'grad_norm': 'nan', 'learning_rate': '9.966e-05', 'entropy': '1.34', 'num_tokens': '7479', 'mean_token_accuracy': '0.6563', 'epoch': '0.3556'}
+
+ 17%|█▋        | 5/30 [01:24<07:00, 16.81s/it]
+ 20%|██        | 6/30 [01:40<06:41, 16.73s/it]
+ 23%|██▎       | 7/30 [01:57<06:24, 16.74s/it]
+ 27%|██▋       | 8/30 [02:14<06:06, 16.65s/it]
+ 30%|███       | 9/30 [02:30<05:46, 16.52s/it]
+ 33%|███▎      | 10/30 [02:47<05:34, 16.73s/it]
+                                               
+{'loss': '1.731', 'grad_norm': '3.358', 'learning_rate': '8.83e-05', 'entropy': '1.287', 'num_tokens': '1.49e+04', 'mean_token_accuracy': '0.7214', 'epoch': '0.7111'}
+
+ 33%|███▎      | 10/30 [02:47<05:34, 16.73s/it]
+ 37%|███▋      | 11/30 [03:03<05:15, 16.62s/it]
+ 40%|████      | 12/30 [03:19<04:56, 16.45s/it]
+ 43%|████▎     | 13/30 [03:37<04:43, 16.66s/it]
+ 47%|████▋     | 14/30 [03:53<04:24, 16.53s/it]
+ 50%|█████     | 15/30 [03:54<02:57, 11.84s/it]
+                                               
+{'loss': '0.2408', 'grad_norm': '1.031', 'learning_rate': '6.434e-05', 'entropy': '0.3823', 'num_tokens': '2.095e+04', 'mean_token_accuracy': '0.9378', 'epoch': '1'}
+
+ 50%|█████     | 15/30 [03:54<02:57, 11.84s/it]
+ 53%|█████▎    | 16/30 [04:11<03:06, 13.35s/it]
+ 57%|█████▋    | 17/30 [04:27<03:06, 14.38s/it]
+ 60%|██████    | 18/30 [04:44<03:00, 15.04s/it]
+ 63%|██████▎   | 19/30 [05:00<02:49, 15.44s/it]
+ 67%|██████▋   | 20/30 [05:17<02:39, 15.91s/it]
+                                               
+{'loss': '0.05115', 'grad_norm': '1.043', 'learning_rate': '3.566e-05', 'entropy': '0.07512', 'num_tokens': '2.843e+04', 'mean_token_accuracy': '0.9829', 'epoch': '1.356'}
+
+ 67%|██████▋   | 20/30 [05:17<02:39, 15.91s/it]
+ 70%|███████   | 21/30 [05:33<02:23, 15.98s/it]
+ 73%|███████▎  | 22/30 [05:50<02:09, 16.23s/it]
+ 77%|███████▋  | 23/30 [06:07<01:54, 16.42s/it]
+ 80%|████████  | 24/30 [06:23<01:37, 16.28s/it]
+ 83%|████████▎ | 25/30 [06:40<01:22, 16.43s/it]
+                                               
+{'loss': '0.0308', 'grad_norm': '0.3144', 'learning_rate': '1.17e-05', 'entropy': '0.0356', 'num_tokens': '3.59e+04', 'mean_token_accuracy': '0.9875', 'epoch': '1.711'}
+
+ 83%|████████▎ | 25/30 [06:40<01:22, 16.43s/it]
+ 87%|████████▋ | 26/30 [06:57<01:06, 16.52s/it]
+ 90%|█████████ | 27/30 [07:13<00:49, 16.52s/it]
+ 93%|█████████▎| 28/30 [07:30<00:33, 16.55s/it]
+ 97%|█████████▋| 29/30 [07:46<00:16, 16.51s/it]
+100%|██████████| 30/30 [07:47<00:00, 11.85s/it]
+                                               
+{'loss': '0.02622', 'grad_norm': '3.284', 'learning_rate': '3.381e-07', 'entropy': '0.03075', 'num_tokens': '4.19e+04', 'mean_token_accuracy': '0.9915', 'epoch': '2'}
+
+100%|██████████| 30/30 [07:47<00:00, 11.85s/it]
+                                               
+{'train_runtime': '467.7', 'train_samples_per_second': '1.026', 'train_steps_per_second': '0.064', 'train_loss': '0.7058', 'epoch': '2'}
+
+100%|██████████| 30/30 [07:47<00:00, 11.85s/it]
+100%|██████████| 30/30 [07:47<00:00, 15.59s/it]
+| run | label | r | trainable_params | learning_rate | final_loss | train_seconds | peak_vram_gb |
+|---|---|---|---|---|---|---|---|
+| correct | all-linear · r=16 · LR 10x · 16-bit | 16 | 32464896 | 0.0001 | 0.6256 | 416.3 | 8.78 |
+| attn_only | q,v only · r=matched · LR 10x · 16-bit | 283 | 32456704 | 0.0001 | 0.5373 | 266.8 | 8.79 |
+| wrong_lr | all-linear · r=16 · LR 1x (full-FT scale) · 16-bit | 16 | 32464896 | 1e-05 | 1.5702 | 397.0 | 8.78 |
+| qlora | all-linear · r=16 · LR 10x · 4-bit QLoRA | 16 | 32464896 | 0.0001 | 0.7058 | 468.1 | 3.86 |
+
+-- NB4 ok in 1303s
+
+----------------------------------------
+stage timings
+  nb4      1303s  (21.7 min)
+  total    1303s (21.7 min)
+END 2026-10-07T11:45:50.147532+00:00 stage=nb4 exit=0

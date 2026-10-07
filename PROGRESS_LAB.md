@@ -1,34 +1,22 @@
 # Tiến độ Lab 21 — Nguyễn Nhân Sâm · 2A202602672
 
-Ngày cập nhật: 07/10/2026 (Asia/Saigon).
+Cập nhật theo bốn checkpoint Colab ngày 07/10/2026. Commit thực nghiệm: `90679f91842e9f42c9192b9c5eab316935705e9c`.
 
 | Bước | Trạng thái | Bằng chứng |
 |---|---|---|
-| Fork + clone | Hoàn thành | origin là Nguyen-Sam-sheep-zzz/Day21-Track3-Finetuning-Lab; upstream là VinUni-AI20k; branch feature/lab21-finetuning |
-| Môi trường CPU | Hoàn thành | Python 3.12, requirements-cpu.txt; results/environment_cpu.txt |
-| Smoke | Hoàn thành | 116 passed, 3 skipped; results/setup_smoke.txt |
-| NB1 tokenizer T4 trên CPU | Hoàn thành cục bộ; chạy lại trên Colab | results/mask_proof.json, template_check.json, token_stats.json, nb1_local.txt |
-| Chuẩn bị evidence NB2/NB5 | Code đã qua review; chờ đo GPU | raw baseline + manifest; paired qualitative; kiểm tra base và metadata training của adapter |
-| Notebook Colab cá nhân | Đã tạo; chưa chạy GPU | colab/Lab21_NguyenNhanSam.ipynb, full eval, epochs=2 |
-| NB2 baseline | Chưa chạy GPU | Không có baselines_frozen.json chính thức |
-| NB3 correct | Chưa chạy GPU | Chưa có adapter/loss/VRAM |
-| NB4 đối chứng | Chưa chạy GPU | Chưa có ba run |
-| NB5 verdict | Chưa chạy GPU | Chưa có metric/verdict cá nhân |
-| Report và gói nộp | Mới có phần NB1 | Chờ số liệu NB2–NB5 và phản tư cá nhân |
+| Fork và chuẩn bị | Hoàn thành | Nhánh feature/lab21-finetuning; 38 file mã runtime khớp commit |
+| NB1 | Hoàn thành trên Colab | Mask 39/94; hai bool true; p95=98, max=101; split 225/25 |
+| NB2 | Hoàn thành | Full 50/15; b=0,765 > a=0; baseline giống hệt bốn checkpoint; trước training chưa có adapter |
+| NB3 | Hoàn thành | Correct: 32.464.896 tham số; 30 step; loss 0,6256; 8,78 GB; 416,3 giây |
+| NB4 | Hoàn thành | Ba đối chứng đủ; cùng max_steps=30; attn_only rank=283, lệch tham số 0,025233% |
+| NB5 | Hoàn thành | Target 0,97; regression 0,522222; format 1; latency 1355,8 ms; model FAILED |
+| Report | Đã biên tập và review số liệu | Bảy ví dụ thật, kết luận 386 từ; học viên cần xác nhận phản tư |
+| Verify | Hoàn thành | 26 đạt, 1 cảnh báo, 0 lỗi; 59 student tests đạt; original CPU 116 đạt, 3 skip |
+| Rubric 3.4 | Chưa đủ bằng chứng | Target: 33 thắng, 17 hòa, 0 thua; chưa có hai ca thua định tính |
+| Gói core | Đã kiểm tra | output/lab21_2A202602672_submission_core.zip, 120,17 MB; hash/CRC, cấu trúc và loại trừ đều đạt |
+| B1–B5 | Chưa làm | Không yêu cầu điểm thưởng khi chưa có measurement |
+| Nộp LMS | Chưa xác nhận | Local ZIP và GitHub không chứng minh đã nộp chính thức |
 
-## NB1 đã đo
+Runtime cũ đã ngắt. Bốn adapter còn ở adapters/{correct,attn_only,wrong_lr,qlora}; không cần train lại để đọc core. ZIP gốc giữ nguyên trong Downloads; SHA256 và thứ tự checkpoint nằm ở results/received_checkpoints.json.
 
-- Model tokenizer: unsloth/Qwen3.5-4B, tier T4, không tải full weights trên Windows.
-- Corpus: 250 mẫu; train=225, val=25, seed=42.
-- Mask sample: 39/94 token supervised (0.4149), answer_is_supervised=true, question_is_masked=true.
-- Token lengths: p95=98, max=101, suggested_max_length=256; giữ giới hạn tier=1024, không cắt answer và dùng cùng giới hạn mọi run.
-- Template test giữ reasoning trace thử nghiệm; corpus huấn luyện mặc định chỉ có answer JSON.
-- check_mask_agreement.py báo tokenizer-level assistant mask rỗng vì template không có generation markers. Đây là lý do pipeline dùng labels đã build bởi labkit, không bật assistant_only_loss để TRL tự tạo mask. Không báo chẩn đoán này là PASS.
-
-## Bước kế tiếp
-
-Mở notebook Colab của fork, chọn T4, chạy Setup → smoke → NB1 → NB2 trước NB3. Giữ checkpoint baseline trước training. Sau NB5 tải checkpoint core_results về thư mục Lab 21 để hoàn thiện report và nghiệm thu.
-
-Browser automation của phiên Codex hiện không khởi tạo được. Chưa có kết nối tới GPU Colab hoặc trạng thái tài khoản Google; người dùng cần chạy các ô GPU nếu công cụ vẫn lỗi. Không cần cung cấp mật khẩu/API key cho pipeline mặc định.
-
-Kiểm tra bổ sung: bộ gốc + student_tests sau sửa review có 175 passed, 3 skipped; điểm provenance đã được reviewer xác nhận ADDRESSED. JSONL đã được khôi phục byte-exact từ Git blob upstream và .gitattributes giữ LF, tất cả checksum gốc khớp. Chưa đổi nội dung dataset/checksum/scorer/test gốc.
+Model FAILED là kết quả hợp lệ; không đổi gate, eval hoặc prompt để chuyển thành PASS. Trọng số đã lưu đều finite, nhưng grad_norm=nan trong log cần được công bố: chưa có thống kê skipped updates fp16. Model/tokenizer revision null nên không khẳng định đã pin phiên bản lịch sử trên Hub.

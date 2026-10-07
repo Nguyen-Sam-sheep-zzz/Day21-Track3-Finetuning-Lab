@@ -1,0 +1,61 @@
+{
+  "baseline_hashes_config_order_and_rescoring": "PASS",
+  "paired_target_raw_scores_delta_and_summary": "PASS",
+  "gate_from_recorded_metrics": "PASS",
+  "full_eval_target": 50,
+  "full_eval_regression": 15,
+  "four_run_step_budget": 30,
+  "attn_only_param_gap_percent": 0.025233409033560434,
+  "adapters": [
+    {
+      "run": "correct",
+      "bytes": 129927008,
+      "tensor_count": 496,
+      "params_from_header": 32464896,
+      "dtypes": [
+        "F32"
+      ],
+      "sha256": "d96bfcba94739d2e5ff7ea5d76a0184a00765a25dba9bd8be5cb5107f9831245"
+    },
+    {
+      "run": "attn_only",
+      "bytes": 129831208,
+      "tensor_count": 32,
+      "params_from_header": 32456704,
+      "dtypes": [
+        "F32"
+      ],
+      "sha256": "f2b9048bf8a0d898e0b671ea078a39b0d26db822b2b10580d9031ed4dcfad29d"
+    },
+    {
+      "run": "wrong_lr",
+      "bytes": 129927008,
+      "tensor_count": 496,
+      "params_from_header": 32464896,
+      "dtypes": [
+        "F32"
+      ],
+      "sha256": "0bdafb991fae47d380e4e7b3724c01f5a05fc7410ce4204af6a071421325029c"
+    },
+    {
+      "run": "qlora",
+      "bytes": 129927008,
+      "tensor_count": 496,
+      "params_from_header": 32464896,
+      "dtypes": [
+        "F32"
+      ],
+      "sha256": "398b63188bce5b4d7ee1623c5484033540d9637625d4db8a07f8f18f3ffb7057"
+    }
+  ],
+  "target_wins": 33,
+  "target_losses": 0,
+  "target_ties": 17,
+  "full_ticket_accuracy": 0.88,
+  "limitations": [
+    "NB5 did not save raw FT regression completions; its aggregate metric is checked against verdict/log, not independently rescored from completions.",
+    "Recorded base and tokenizer revisions are null; exact historical Hub revision cannot be asserted.",
+    "Zero target loss cases: rubric 3.4 requirement of two losses remains unproven.",
+    "Captured logs are consistency evidence, not signed execution attestation."
+  ]
+}

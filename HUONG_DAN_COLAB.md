@@ -1,3 +1,5 @@
+> Core NB1–NB5 đã chạy ngày 07/10/2026 và kết quả được giữ trong repo. Hướng dẫn bên dưới mô tả lần chạy gốc; không chạy lại NB2 trên thí nghiệm đã train. Thí nghiệm gốc dùng commit90679f9. Report và READINESS hiện ghi đầy đủ trạng thái/thiếu hụt.
+
 # Chạy Lab 21 trên Colab — Nguyễn Nhân Sâm · 2A202602672
 
 Repo: https://github.com/Nguyen-Sam-sheep-zzz/Day21-Track3-Finetuning-Lab
@@ -22,3 +24,7 @@ Nếu Colab báo lỗi, dừng ở ô đó; notebook giữ log tại results/col
 Nếu NB4 đứt giữa chừng mà runtime còn dữ liệu: chạy lại ô NB4, các adapter đã xong sẽ được skip. Nếu runtime đã mất: cần phục hồi checkpoint, đúng commit/config, và chạy lại NB1 để tái tạo split; nhờ trợ lý hướng dẫn theo file đã lưu, không lấy adapter từ smoke hay thí nghiệm khác.
 
 B1 merge/hot-swap có ô tùy chọn, mặc định chưa chạy. B2/B3/B4/B5 sẽ làm trong các chặng riêng sau core. Full merged weights không nằm trong ZIP checkpoint; adapter chính và đối chứng có trong ZIP để phục hồi.
+
+## Phục hồi để lưu thêm output regression
+
+Không cần huấn luyện lại. Mở Colab → File → Upload notebook, chọn file local output/Lab21_Regression_Followup.ipynb rồi chọn T4. Khi ô upload yêu cầu, chọn đúng lab21_2A202602672_after_correct_20261007T112307Z.zip trong Downloads (~120MB). Notebook kiểm tra SHA256, phục hồi đúng source commit cũ và adapter, sinh thêm15câu regression cùng recipe và tải regression_followup.json. Đây là lần đo bổ sung chưa chạy GPU; kết quả không thay thế raw output gốc của NB5. Gửi fileJSON này để phân tích tiếp. Không dùng nó để tuyên bố có hai ca thua trong50ticket target hoặc bảo đảm đạt3.4 khi giảng viên chưa xácnhận.

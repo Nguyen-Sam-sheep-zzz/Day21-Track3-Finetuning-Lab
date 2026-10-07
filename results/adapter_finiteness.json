@@ -1,0 +1,21 @@
+{
+  "adapters": [
+    {
+      "run": "correct",
+      "nonfinite_saved_values": 0
+    },
+    {
+      "run": "attn_only",
+      "nonfinite_saved_values": 0
+    },
+    {
+      "run": "wrong_lr",
+      "nonfinite_saved_values": 0
+    },
+    {
+      "run": "qlora",
+      "nonfinite_saved_values": 0
+    }
+  ],
+  "note": "All saved adapter values are finite; this does not prove no fp16 update was skipped during training."
+}
