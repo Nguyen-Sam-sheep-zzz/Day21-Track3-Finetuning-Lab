@@ -1,0 +1,166 @@
+{
+  "status": "mechanical_checks_passed",
+  "authorship": "AI-assisted synthetic scenarios; no independent human annotation",
+  "quality_scope": "Mechanical QA plus author semantic sample review; not user-approved domain quality",
+  "sets": {
+    "train": {
+      "rows": 240,
+      "scenario_families": 60,
+      "normalized_duplicate_inputs": 0,
+      "intent_counts": {
+        "doi_tra": 48,
+        "hoan_tien": 48,
+        "san_pham_loi": 48,
+        "van_chuyen": 48,
+        "hoi_thong_tin": 48
+      },
+      "urgency_counts": {
+        "cao": 60,
+        "trung_binh": 60,
+        "thap": 120
+      },
+      "sentiment_counts": {
+        "tieu_cuc": 60,
+        "trung_tinh": 120,
+        "tich_cuc": 60
+      },
+      "character_lengths": {
+        "min": 186,
+        "max": 316
+      }
+    },
+    "eval": {
+      "rows": 60,
+      "scenario_families": 15,
+      "normalized_duplicate_inputs": 0,
+      "intent_counts": {
+        "doi_tra": 12,
+        "hoan_tien": 12,
+        "san_pham_loi": 12,
+        "van_chuyen": 12,
+        "hoi_thong_tin": 12
+      },
+      "urgency_counts": {
+        "thap": 30,
+        "cao": 15,
+        "trung_binh": 15
+      },
+      "sentiment_counts": {
+        "tieu_cuc": 15,
+        "trung_tinh": 30,
+        "tich_cuc": 15
+      },
+      "character_lengths": {
+        "min": 260,
+        "max": 373
+      }
+    }
+  },
+  "schema_errors": [],
+  "train_eval_normalized_exact_overlap": 0,
+  "train_eval_family_overlap": [],
+  "original_core_comparisons": {
+    "train_seed.jsonl": {
+      "rows_checked": 250,
+      "normalized_exact_input_overlap": 0,
+      "sha256": "2a58fe45d7315da0fb2934495cb7ec6717254f6df95d9560d748b10aa45409e3"
+    },
+    "eval_target.jsonl": {
+      "rows_checked": 50,
+      "normalized_exact_input_overlap": 0,
+      "sha256": "2991050fefb848c8bf3fdbc021badea9500f758d90717d7a94ae2f9b09b8915e"
+    },
+    "eval_regression.jsonl": {
+      "rows_checked": 15,
+      "normalized_exact_input_overlap": 0,
+      "sha256": "9c6ba90ea86e28fbc7102bf4cc4cb1e23c4668cf95bfcae55c3c114d34dc133b"
+    }
+  },
+  "near_duplicate_screen": {
+    "method": "max content-word Jaccard after removing product/common signals; lexical screening only",
+    "highest_cross_split_pair": {
+      "jaccard": 0.35294117647058826,
+      "train_row": 192,
+      "eval_row": 42,
+      "train_family": "van_chuyen/physical_dispatch_date",
+      "eval_family": "van_chuyen/physical_locker_access"
+    }
+  },
+  "tokenizer": {
+    "status": "measured_local",
+    "source": "C:\\Users\\SAM\\.cache\\huggingface\\hub\\models--unsloth--Qwen3.5-4B\\snapshots\\3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+    "format": "labkit.data.to_messages default NAIVE_PROMPT / tokenizer default chat template",
+    "stats": {
+      "train": {
+        "n": 240,
+        "min": 116,
+        "max": 146,
+        "mean": 129.49583333333334,
+        "median": 129.0,
+        "over_512": 0,
+        "over_1024": 0
+      },
+      "eval": {
+        "n": 60,
+        "min": 132,
+        "max": 162,
+        "mean": 144.45,
+        "median": 143.0,
+        "over_512": 0,
+        "over_1024": 0
+      }
+    }
+  },
+  "semantic_review": {
+    "method": "Author read scenario family source and representative assembled rows",
+    "sample_rows": {
+      "train": [
+        1,
+        49,
+        97,
+        145,
+        193
+      ],
+      "eval": [
+        1,
+        13,
+        25,
+        37,
+        49
+      ]
+    },
+    "families_reviewed": [
+      "switch_level: explicit replacement, no cash refund",
+      "duplicate_charge: refund of repeated payment",
+      "video_playback: concrete playback failure",
+      "physical_book_late: physical printed book delivery",
+      "course_prerequisites: course entry information",
+      "switch_learning_goal: different learning objective, package swap",
+      "bank_settlement_mismatch: excess payment refund",
+      "accessibility_control_bug: concrete platform accessibility malfunction",
+      "physical_customs_hold: physical parcel checkpoint",
+      "portfolio_usage_rules: information about project sharing"
+    ],
+    "sentiment_rule": "Positive refers explicitly to current reception/support attitude, even with unresolved request; no assertion that the faulty feature itself is satisfactory",
+    "limitation": "AI author review is not independent human validation; repetitive phrasing and explicit label cues limit naturalness"
+  },
+  "limitations": [
+    "No guarantee examples are unseen in foundation-model pretraining.",
+    "Invented product names and local scenarios support a distribution-novelty hypothesis, not measured novelty.",
+    "No GPU training, model evaluation, or B2 result claim.",
+    "Label cues are explicit and synthetic; field evaluation may be substantially harder.",
+    "Different products and families are held out; lexical screening cannot exclude all semantic similarity."
+  ],
+  "saved_files": {
+    "train.jsonl": {
+      "sha256": "1fa540e173a946b81cbc2411220e8da7af80f1da279c6426f1d6203837b3f301",
+      "utf8_bom": false,
+      "crlf_count": 0
+    },
+    "eval_target.jsonl": {
+      "sha256": "049a6deaa3e6d9305bff1d472b371d9698c3a119bb49444162ee4d7f5c7bab1f",
+      "utf8_bom": false,
+      "crlf_count": 0
+    }
+  }
+}
