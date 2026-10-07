@@ -28,3 +28,18 @@ B1 merge/hot-swap có ô tùy chọn, mặc định chưa chạy. B2/B3/B4/B5 s�
 ## Phục hồi để lưu thêm output regression
 
 Không cần huấn luyện lại. Mở Colab → File → Upload notebook, chọn file local output/Lab21_Regression_Followup.ipynb rồi chọn T4. Khi ô upload yêu cầu, chọn đúng lab21_2A202602672_after_correct_20261007T112307Z.zip trong Downloads (~120MB). Notebook kiểm tra SHA256, phục hồi đúng source commit cũ và adapter, sinh thêm15câu regression cùng recipe và tải regression_followup.json. Đây là lần đo bổ sung chưa chạy GPU; kết quả không thay thế raw output gốc của NB5. Gửi fileJSON này để phân tích tiếp. Không dùng nó để tuyên bố có hai ca thua trong50ticket target hoặc bảo đảm đạt3.4 khi giảng viên chưa xácnhận.
+
+## Notebook bổ sung cho hạn 23:30 ngày 07/10/2026
+
+[Mở notebook khôi phục và đo bổ sung](https://colab.research.google.com/github/Nguyen-Sam-sheep-zzz/Day21-Track3-Finetuning-Lab/blob/feature/lab21-finetuning/colab/Lab21_Deadline_Followup.ipynb).
+
+1. Nếu phiên cũ đang Run all, dùng Runtime → Interrupt execution; giữ các ZIP đã tải.
+2. Mở notebook bổ sung trên T4; chạy các ô setup/restore theo thứ tự.
+3. Khi được yêu cầu, chọn **lab21_2A202602672_core_results_20261007T124407Z.zip** trong Downloads (~478 MB).
+4. Chạy regression trước; tải ZIP nhỏ sau bước đó. Sau đó chạy B1 và B4 nếu còn giờ.
+5. Mỗi bước tải ZIP bằng chứng riêng. Giữ tất cả và gửi lại để kiểm tra trước khi sửa report.
+
+Nguồn core giữ commit90679f9; helper được pin commit và hash riêng. Không chạy lại NB2/NB3/NB4 core.
+Notebook chỉ kiểm tra thời gian trước từng bước; mốc23:20 dành cho tổng hợp, không ngắt CUDA giữa chừng.
+Kết quả bổ sung chưa được khẳng định trước khi chạy GPU. Lỗi hoặc partial giữ nguyên log/status.
+Không bấm lại bước đã tạo bằng chứng; dùng một thư mục/attempt mới nếu thực sự cần repeat.

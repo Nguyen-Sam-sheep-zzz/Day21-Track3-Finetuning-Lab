@@ -22,7 +22,11 @@ Nguyễn Nhân Sâm · 2A202602672 · thí nghiệm 07/10/2026.
 | 4.2 Kết luận | Đủ độ dài | 386 từ theo whitespace; có lập luận và giới hạn |
 | 4.3 Số liệu | Đã kiểm tra và review | Raw baseline/cặp target re-score; bảng và bảy ví dụ khớp; aggregate regression đối chiếu log |
 | 4.4 Phản tư | Học viên cần xác nhận | Soạn từ thao tác và kết quả thật; AI hỗ trợ được khai báo |
-| B1–B5 | Chưa có bằng chứng | Không yêu cầu điểm thưởng |
+| B1 merge/hot-swap | Chuẩn bị mã, chưa chạy GPU | Helper và notebook bổ sung; không yêu cầu điểm thưởng |
+| B2 dataset riêng | Có bản nháp synthetic riêng | Chưa xác nhận chất lượng thủ công; không tự nhận hoàn thành |
+| B3 traces | Chưa thực hiện | Cần dữ liệu trace và hai training run riêng; core JSON không đủ |
+| B4 rank sweep | Chuẩn bị mã, chưa chạy GPU | r8/r16/r64 cùng recipe; chưa có bảng measured |
+| B5 Hub | Chuẩn bị local, chưa upload | Cần tài khoản đích và login; xem HF_PREPARATION.md |
 
 Verify local: 26 đạt, 1 cảnh báo, 0 lỗi, exit 0; cảnh báo model FAILED. Colab smoke: 119 original tests đạt. Local: 116 original tests đạt, 3 skip do chưa có PyTorch; 59 student tests đạt. Tests gốc, scorer, config và corpus không đổi. Verify không chấm đủ rubric 3.4.
 
@@ -31,3 +35,5 @@ Gói Option A chứa submission/REPORT.md, READINESS.md, toàn bộ results, hai
 Nếu bổ sung ví dụ regression, dùng notebook local output/Lab21_Regression_Followup.ipynb, upload ZIP after_correct gốc và tải regression_followup.json. Notebook này chưa chạy GPU; đây là phép đo bổ sung. Không thay baseline/verdict core hoặc gọi regression loss thành target loss. Cần giảng viên xác nhận cách áp dụng 3.4 khi tập target thực có 0 ca thua.
 
 Học viên trực tiếp nộp LMS hoặc đường dẫn theo yêu cầu lớp. Gói local và remote branch không đồng nghĩa đã nộp bài.
+
+Notebook bổ sung: https://colab.research.google.com/github/Nguyen-Sam-sheep-zzz/Day21-Track3-Finetuning-Lab/blob/feature/lab21-finetuning/colab/Lab21_Deadline_Followup.ipynb

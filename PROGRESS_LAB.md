@@ -14,9 +14,19 @@ Cập nhật theo bốn checkpoint Colab ngày 07/10/2026. Commit thực nghiệ
 | Verify | Hoàn thành | 26 đạt, 1 cảnh báo, 0 lỗi; 59 student tests đạt; original CPU 116 đạt, 3 skip |
 | Rubric 3.4 | Chưa đủ bằng chứng | Target: 33 thắng, 17 hòa, 0 thua; chưa có hai ca thua định tính |
 | Gói core | Đã kiểm tra | output/lab21_2A202602672_submission_core.zip, 120,17 MB; hash/CRC, cấu trúc và loại trừ đều đạt |
-| B1–B5 | Chưa làm | Không yêu cầu điểm thưởng khi chưa có measurement |
+| B1/B4 | Mã và notebook bổ sung đang kiểm tra | Chưa có measurement GPU; không nhận điểm |
+| B2 | Soạn draft synthetic riêng | Chất lượng người đọc chưa xác nhận |
+| B3 | Chưa chạy | Cần trace và hai run riêng |
+| B5 | Đã chuẩn bị model card + adapter local | Chưa upload vì thiếu account/login |
 | Nộp LMS | Chưa xác nhận | Local ZIP và GitHub không chứng minh đã nộp chính thức |
 
 Runtime cũ đã ngắt. Bốn adapter còn ở adapters/{correct,attn_only,wrong_lr,qlora}; không cần train lại để đọc core. ZIP gốc giữ nguyên trong Downloads; SHA256 và thứ tự checkpoint nằm ở results/received_checkpoints.json.
 
 Model FAILED là kết quả hợp lệ; không đổi gate, eval hoặc prompt để chuyển thành PASS. Trọng số đã lưu đều finite, nhưng grad_norm=nan trong log cần được công bố: chưa có thống kê skipped updates fp16. Model/tokenizer revision null nên không khẳng định đã pin phiên bản lịch sử trên Hub.
+
+## Tiến độ theo yêu cầu trước 23:30
+
+Cập nhật UTC: 2026-10-07T15:36:18.182144+00:00. Notebook bổ sung khôi phục đúng ZIP core, giữ immutable baseline và xuất ZIP nhỏ từng bước.
+Công cụ điều khiển Colab lỗi khởi tạo; GPU cục bộ GTX1650 4GB không phù hợp recipe T4 4B.
+Đang cần thao tác mở/chạy notebook T4 của học viên để có các số đo mới.
+Gói core đã có và được bảo toàn; không sửa gate để biến FAILED thành PASS.

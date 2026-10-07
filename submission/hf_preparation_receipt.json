@@ -1,0 +1,23 @@
+{
+  "status": "prepared locally; not uploaded",
+  "base_license_checked": "apache-2.0",
+  "base_revision_at_license_check": "3764fa359b9082ea5a1e4a5e3ac3aaf6e9671636",
+  "historical_revision_known": false,
+  "files": [
+    {
+      "name": "adapter_config.json",
+      "bytes": 1259,
+      "sha256": "998a861be27aa042703920990d85d450717eaf7b43cae32349cb5ff83b9084de"
+    },
+    {
+      "name": "adapter_model.safetensors",
+      "bytes": 129927008,
+      "sha256": "d96bfcba94739d2e5ff7ea5d76a0184a00765a25dba9bd8be5cb5107f9831245"
+    },
+    {
+      "name": "README.md",
+      "bytes": 2592,
+      "sha256": "47470e1ab235a3406016b6a4ff9422c29accb80b015692f2791d6671f7967c40"
+    }
+  ]
+}
