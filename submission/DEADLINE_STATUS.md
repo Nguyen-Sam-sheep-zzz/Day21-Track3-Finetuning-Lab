@@ -12,7 +12,7 @@ không đồng nghĩa bài lab thất bại. Target0,97 cao hơn baseline0,765, 
 | ≥2ca FT thua | Chưa đủ;50target có0loss. Notebook mới đo regression, cần diễn giải rubric |
 | Verify và ZIP core | Đã kiểm tra;26pass1warning0fail, warning là model FAILED |
 | B1/B4 | Có mã/notebook reviewed; chờ GPU, không claim điểm |
-| B2 | Draft synthetic240train+60heldout đang QA; chưa có xác nhận chất lượng thủ công |
+| B2 | Draft synthetic240 train + 60 held-out đã qua QA cơ học; chưa có xác nhận chất lượng thủ công |
 | B3 | Chưa thực hiện, thiếu trace và hai training run có kiểm soát |
 | B5 | Model card/twoadapterfiles local; chưa có username/login để upload |
 | Nộp LMS | Chưa thực hiện; GitHub/ZIP không thay thế nộp chính thức |
@@ -27,3 +27,5 @@ Không thể chứng nhận phản tư cá nhân hoặc thay học viên nộp L
 
 Lịch heartbeat định kỳ đã bị hệ thống xét duyệt tự động từ chối và không được tạo.
 Công việc được thực hiện trực tiếp trong phiên hiện tại; không cam kết báo cáo tự động sau khi phiên kết thúc.
+
+Kiểm tra mã bổ sung cuối: 201 passed, 3 skipped (results/supplementary_tests_cpu.txt). Verify UTF-8: 26 đạt, 1 cảnh báo, 0 lỗi. Không có kết quả GPU bổ sung tại thời điểm ghi này.

@@ -30,3 +30,5 @@ Cập nhật UTC: 2026-10-07T15:36:18.182144+00:00. Notebook bổ sung khôi ph�
 Công cụ điều khiển Colab lỗi khởi tạo; GPU cục bộ GTX1650 4GB không phù hợp recipe T4 4B.
 Đang cần thao tác mở/chạy notebook T4 của học viên để có các số đo mới.
 Gói core đã có và được bảo toàn; không sửa gate để biến FAILED thành PASS.
+
+Kiểm tra mã bổ sung cuối: 201 passed, 3 skipped (results/supplementary_tests_cpu.txt). Verify UTF-8: 26 đạt, 1 cảnh báo, 0 lỗi. Không có kết quả GPU bổ sung tại thời điểm ghi này.

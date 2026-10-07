@@ -13,3 +13,10 @@ results/user_pasted_nb3.txt -text
 # Keep packaged report and notebook byte hashes stable on Windows.
 submission/*.md text eol=lf
 notebooks/*.py text eol=lf
+
+bonus_data/**/*.jsonl text eol=lf
+bonus_data/**/*.json text eol=lf
+bonus_data/**/*.md text eol=lf
+student_tools/*.py text eol=lf
+student_tests/test_deadline_experiments.py text eol=lf
+colab/Lab21_Deadline_Followup.ipynb text eol=lf

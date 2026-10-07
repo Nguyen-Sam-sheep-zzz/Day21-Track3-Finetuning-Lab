@@ -16,13 +16,13 @@
   "files": [
     {
       "path": "submission/REPORT.md",
-      "bytes": 23052,
-      "sha256": "68890825fecba7a22b8fe753c7fdee9cb5a601f909adf2610d08118b108c2a30"
+      "bytes": 24858,
+      "sha256": "c403dfd7e9b1ee3ca59513eb22e605fab75d625a41d15f7b2e73939e0f287d0e"
     },
     {
       "path": "submission/READINESS.md",
-      "bytes": 3678,
-      "sha256": "b590e71678fdc1a9f9b82b19b1875be0d5a340ba787a87ea44d918171051493f"
+      "bytes": 4373,
+      "sha256": "2db39f7846070f9decbf4ea1d7a69d16014fc9411e3a757a3a6c08d38ea7628a"
     },
     {
       "path": "results/adapter_finiteness.json",
@@ -155,6 +155,11 @@
       "sha256": "459ae81ba6521cade1f2cbd24f10662b434e5821fe2d2186be8582a0f6455bca"
     },
     {
+      "path": "results/supplementary_tests_cpu.txt",
+      "bytes": 346,
+      "sha256": "a467e3368a42f9874df8c124b8e430a42635b055d8e80b57c8d325ab073252e9"
+    },
+    {
       "path": "results/template_check.json",
       "bytes": 277,
       "sha256": "70d2cdec945ef5c196a0064f7379295487f3ea15d61b63455b8ffd285babe5ce"
@@ -177,7 +182,7 @@
     {
       "path": "results/verify.txt",
       "bytes": 2049,
-      "sha256": "c88c3734547ba0740d0fc393b27bd49d953bc6c2a0dcf20fc2e734f1a7167f62"
+      "sha256": "5ffe4897d18073d7df8d22fe39e207a1fe6fea9b0430cdc21ae4611287dc33e9"
     },
     {
       "path": "notebooks/01_data_and_mask.py",

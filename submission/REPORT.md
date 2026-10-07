@@ -259,3 +259,24 @@ Colab smoke ghi **119 original tests passed**, không có skip. Kiểm thử c�
 Các kiểm tra độc lập đã re-score raw baseline, từng cặp target và summary; kiểm tra full eval, step budget, ngân sách params, adapter provenance, safetensors header và toàn bộ giá trị trọng số. Raw FT regression không có nên không tuyên bố đã re-score metric đó từ completion; mới đối chiếu aggregate trong log/verdict. Những hạn chế revision=null, grad_norm=nan và thiếu hai ca target thua được giữ công khai.
 
 Gói core chọn Option A: report, toàn bộ results, hai file adapter correct và notebook nguồn không chứa output. Adapter correct khoảng 129,93 MB thô (F32), nên ZIP lớn hơn ví dụ 5–15 MB trong rubric; đó là dung lượng thực, không phải full merged weights. Các adapter đối chứng giữ ngoài gói core nhưng có hash và bằng chứng trong results. Không đưa .env, token, .venv, model cache hoặc merged model vào ZIP. B1–B5 chưa có bằng chứng hoàn thành và không yêu cầu điểm thưởng. Gói local và nhánh GitHub không tự chứng minh đã nộp LMS.
+
+## 10. Chuẩn bị bổ sung trước hạn 23:30
+
+Mã bổ sung và notebook phục hồi đã được kiểm tra/review, nhưng chưa chạy GPU. Bộ CPU gồm
+**201 passed, 3 skipped**, lưu tại results/supplementary_tests_cpu.txt; các skip cần PyTorch.
+Helper đo 15 regression, full50 trước/sau merge và hai adapter trên cùng base; rank sweep
+r8/r16/r64 giữ recipe riêng. Baseline, adapter và verdict core không bị ghi đè.
+
+[Notebook bổ sung](https://colab.research.google.com/github/Nguyen-Sam-sheep-zzz/Day21-Track3-Finetuning-Lab/blob/feature/lab21-finetuning/colab/Lab21_Deadline_Followup.ipynb). Kết quả mới, nếu có, phải được kiểm tra và ghi rõ là supplementary repeat.
+
+Bản nháp dataset CSKH giáo dục giả lập nằm ở bonus_data/education_support, với pointer
+data/CUSTOM_DATASET.md: **240 train + 60 eval**, tách **60/15 nhóm tình huống**, không có
+trùng input chuẩn hóa nội bộ, giữa split hoặc với core đã kiểm tra. quality_audit.json lưu
+schema, hash, kiểm tra từ vựng và đo token local. Đây là dữ liệu synthetic có câu nhãn lặp,
+chưa có thẩm định chất lượng độc lập hoặc phép đo GPU trên miền này; không tự nhận B2 đã đạt.
+
+Model card và adapter correct để chuẩn bị Hub đã tạo ở output/huggingface_adapter;
+receipt nằm trong submission/hf_preparation_receipt.json. Chưa upload Hub, chưa có link
+B5; B3 chưa thực hiện. Các công việc chuẩn bị này không chuyển thành điểm thưởng measured.
+Trợ lý chưa chạy được Colab vì công cụ browser không khởi tạo; cần học viên mở notebook T4
+và cung cấp các ZIP mới. Không tuyên bố đã nộp LMS hoặc hoàn thành toàn bộ rubric.
