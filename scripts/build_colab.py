@@ -18,14 +18,29 @@ SRC = ROOT / "notebooks"
 OUT = ROOT / "colab"
 
 BOOTSTRAP = """# @title Setup (chạy ô này trước)
-# Colab bắt đầu với một máy trống — clone repo và cài dependency.
-import os, subprocess, sys
+# Clone fork chứa labkit.evidence; giữ nguyên checkout trong suốt thí nghiệm frozen.
+import os, pathlib, subprocess, sys
 
-REPO = "https://github.com/VinUni-AI20k/Day21-Track3-Finetuning-Lab.git"
-if not os.path.exists("Day21-Track3-Finetuning-Lab"):
-    subprocess.run(["git", "clone", "-q", REPO], check=True)
-os.chdir("Day21-Track3-Finetuning-Lab")
-sys.path.insert(0, "src")
+REPO = "https://github.com/Nguyen-Sam-sheep-zzz/Day21-Track3-Finetuning-Lab.git"
+BRANCH = "feature/lab21-finetuning"
+HERE = pathlib.Path.cwd()
+REPO_DIR = HERE if (HERE / ".git").exists() else HERE / "Day21-Track3-Finetuning-Lab"
+if not REPO_DIR.exists():
+    subprocess.run(["git", "clone", "-q", "--branch", BRANCH, "--single-branch",
+                    REPO, str(REPO_DIR)], check=True)
+if not (REPO_DIR / ".git").exists():
+    raise RuntimeError("Setup cần checkout Git riêng; dùng runtime/thư mục mới trước NB2.")
+origin = subprocess.run(["git", "config", "--get", "remote.origin.url"], cwd=REPO_DIR,
+                        capture_output=True, text=True, check=True).stdout.strip()
+branch = subprocess.run(["git", "branch", "--show-current"], cwd=REPO_DIR,
+                        capture_output=True, text=True, check=True).stdout.strip()
+if origin.removesuffix(".git") != REPO.removesuffix(".git") or branch != BRANCH:
+    raise RuntimeError("Checkout không đúng fork/branch. Chọn checkout đúng trước NB2; không đổi code giữa run frozen.")
+if not (REPO_DIR / "src" / "labkit" / "evidence.py").exists():
+    raise RuntimeError("Checkout thiếu labkit.evidence. Dùng bản feature/lab21-finetuning đã push trước NB2.")
+os.chdir(REPO_DIR)
+sys.path.insert(0, str(REPO_DIR / "src"))
+# Setup không pull/fetch/checkout/reset trên checkout đã tồn tại.
 
 # Install from requirements.txt, NOT a copied list. The copied list is how the
 # torchao>=0.16 pin reached requirements.txt and this bootstrap on different days --
@@ -37,6 +52,8 @@ subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-r", "requirement
 
 os.environ.setdefault("COMPUTE_TIER", "T4")
 import torch
+print("commit:", subprocess.run(["git", "rev-parse", "--short", "HEAD"],
+                                capture_output=True, text=True, check=True).stdout.strip())
 print("GPU:", torch.cuda.get_device_name(0) if torch.cuda.is_available() else "NONE — Runtime > Change runtime type > T4 GPU")
 """
 

@@ -68,7 +68,7 @@ Tài liệu ưu tiên: README → rubric → NB1/NB2 → config/modeling/train/e
 | `results/experiment_manifest.json` | Artifact bổ sung | Cấu hình, revision, hash, UTC time trước train |
 | `results/baseline_predictions.json` | Artifact bổ sung | Raw outputs (a)/(b), nhãn và điểm từng mẫu |
 | `results/paired_qualitative.json` | Artifact bổ sung | Raw output/score của (b) và FT trên cùng ticket |
-| `results/environment.txt`, `results/verify.txt` | Artifact bổ sung | Phiên bản gói và kiểm tra cuối |
+| `results/environment.txt`, `results/environment_t4.txt`, `results/verify.txt` | Artifact bổ sung | Inventory đã sealed của NB2, pip freeze riêng trước NB2 và kiểm tra cuối |
 
 ## Task 0: Chốt môi trường và lịch làm — 20–40 phút
 
@@ -98,7 +98,7 @@ subprocess.run([sys.executable, 'scripts/verify.py', '--smoke'], check=True)
 Windows PowerShell cho phần CPU, chạy từ thư mục cha bạn chọn cho lab:
 
 ```powershell
-git clone https://github.com/VinUni-AI20k/Day21-Track3-Finetuning-Lab.git
+git clone --branch feature/lab21-finetuning --single-branch https://github.com/Nguyen-Sam-sheep-zzz/Day21-Track3-Finetuning-Lab.git
 Set-Location Day21-Track3-Finetuning-Lab
 py -3 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -U pip
@@ -140,33 +140,43 @@ subprocess.run([sys.executable, 'scripts/colab_run.py', 'nb1'], check=True)
 **Produces:** baseline đóng băng và raw prediction để NB5 phân tích thắng/thua.
 
 - [ ] Đảm bảo không bật EVAL_LIMIT và chưa có run train trong thí nghiệm này.
-- [ ] Trước lần chạy, bổ sung lưu các prediction NB2 đã sinh; không cần chạy thêm inference để lấy raw output.
+- [ ] NB2 đã tích hợp `evidence.record_baseline` để lưu toàn bộ target/regression (a)/(b); không thêm writer hoặc inference.
 - [ ] Chạy NB2; kiểm tra frozen n_target=50, n_regression=15, smoke_mode=false với corpus mặc định.
 - [ ] Xác nhận (b).target > (a).target. Nếu chưa, cải thiện prompt trên train/val, khai báo thay đổi và đo lại trước training; không tinh chỉnh theo lỗi eval/holdout.
 - [ ] Lưu manifest: model ID và resolved revision nếu lấy được, tokenizer, commit, seed, tier, precision, epochs, length, eval count, hash dữ liệu/prompt, thời điểm UTC. Lưu cùng config trước train và không ghi đè ở bước sau.
 - [ ] Lưu artifact ra nơi bền vững để không mất khi Colab recycle. Giữ baseline chính thức, không trộn với smoke.
 
-Ngay sau hai lệnh `score_run` trong NB2, bổ sung:
+NB2 đã gọi `evidence.record_baseline` bằng các output đã sinh. `baseline_predictions.json` là bundle có hai danh sách `target` và `regression`, không phải danh sách target ở top level. Không dán thêm writer thay thế bundle.
+
+Chạy inventory đầy đủ vào tên riêng **trước NB2**, rồi chạy NB2 và kiểm tra bundle bằng API hiện tại:
 
 ```python
-report.write_json([
-    {
-        'i': i, 'ticket': row['input'], 'label': row['label'],
-        'baseline_a_pred': pa, 'baseline_b_pred': pb,
-        'baseline_a_score': ev.triage_field_accuracy(pa, row['label']),
-        'baseline_b_score': ev.triage_field_accuracy(pb, row['label']),
-    }
-    for i, (row, pa, pb) in enumerate(zip(target, preds_a, preds_b))
-], 'baseline_predictions.json', results_dir=ROOT / 'results')
-```
-
-```python
+import json, os, pathlib, subprocess, sys
+from labkit import device, evidence
+from labkit.config import get_tier
+ROOT = pathlib.Path.cwd()
+(ROOT / 'results').mkdir(exist_ok=True)
+with (ROOT / 'results' / 'environment_t4.txt').open('w', encoding='utf-8') as fh:
+    subprocess.run([sys.executable, '-m', 'pip', 'freeze'], stdout=fh, check=True)
 subprocess.run([sys.executable, 'scripts/colab_run.py', 'nb2'], check=True)
-subprocess.run([sys.executable, '-m', 'pip', 'freeze'],
-               stdout=open('results/environment.txt', 'w', encoding='utf-8'), check=True)
+
+def load_eval(path):
+    return [json.loads(line) for line in path.read_text(encoding='utf-8').splitlines() if line.strip()]
+
+target = load_eval(ROOT / 'data' / 'eval_target.jsonl')
+regression = load_eval(ROOT / 'data' / 'eval_regression.jsonl')
+context = evidence.experiment_context(
+    ROOT, get_tier(os.environ.get('COMPUTE_TIER', 'T4')), precision=device.precision(), eval_limit=0)
+baseline_raw = evidence.verify_baseline(ROOT, context, target, regression)
+frozen = json.loads((ROOT / 'results' / 'baselines_frozen.json').read_text(encoding='utf-8'))
+assert len(baseline_raw['target']) == frozen['n_target'] == 50
+assert len(baseline_raw['regression']) == frozen['n_regression'] == 15
+assert frozen['smoke_mode'] is False
 ```
 
-**Checkpoint:** baseline và raw output tồn tại, (b) mạnh hơn (a), hash/config được lưu trước training. Không giả định verify chứng minh được thứ tự thời gian vì code hiện tại không lưu timestamp cho việc đó.
+Sau khi `experiment_manifest.json` tồn tại, bốn artifact `baselines_frozen.json`, `baseline_predictions.json`, `environment.txt` và manifest của lần đo đó được sealed: không ghi đè hoặc sửa bằng pip freeze, report writer hay bước sau. `environment.txt` chứa inventory dependency do NB2 ghi và được hash; pip freeze đầy đủ nằm riêng ở `environment_t4.txt`. Giữ nguyên checkout và dependency trong run frozen; không pull/đổi branch giữa NB2 và NB5. Nếu cần cải thiện prompt trước training, dùng `BASELINE_RERUN=1`: helper kiểm tra chưa train và archive nguyên bundle cũ; sau khi có adapter/training row sẽ từ chối đo lại.
+
+**Checkpoint:** baseline và bundle raw tồn tại, (b) mạnh hơn (a), hash/config được lưu trước training. Manifest lưu timestamp UTC và metadata để kiểm tra nhất quán; đây không phải signed proof về lịch sử huấn luyện.
 
 ## Task 3: NB3 — Train LoRA chính — 15–25 phút GPU + kiểm tra
 
@@ -227,34 +237,35 @@ subprocess.run([sys.executable, 'scripts/colab_run.py', 'nb4'],
 - [ ] Không diễn giải format=1 như bảo đảm JSON thuần tuyệt đối: scorer có thể lấy object nằm trong văn bản/fence. Giới hạn này nên ghi nếu ảnh hưởng kết luận.
 - [ ] Đọc gate hiện tại: target_delta>0 và regression_delta>=-0.02. Format/latency được báo cáo nhưng không trực tiếp quyết định boolean PASS/FAIL.
 - [ ] Autopsy có đủ correct + attn_only + wrong_lr + qlora; xếp hạng target, đối chiếu training loss.
-- [ ] Bổ sung bảng ghép prediction (b) trước train với FT trên cùng i/ticket, có nhãn và điểm. qualitative.json có sẵn chỉ sắp theo ft_score, chưa chứng minh thua (b).
+- [ ] NB5 đã tích hợp bảng ghép prediction (b) trước train với FT trên cùng i/ticket, có nhãn và điểm. qualitative.json gốc chỉ sắp theo ft_score, chưa chứng minh thua (b).
 - [ ] Chọn ít nhất 5 ví dụ, ít nhất 2 ca delta<0; khuyến nghị thêm 2 ca delta>0 nếu có và một ca hòa/khó. “FT sai” chưa tự động là “FT thua baseline”.
 - [ ] Nếu không có đủ 2 ca FT thua, báo rõ số thực tế và điểm rubric chưa được chứng minh; không bịa hoặc thay eval để tạo ví dụ. Có thể bổ sung một tập challenge khai báo riêng, giữ nguyên bảng core, nhưng cần xác nhận với giảng viên việc dùng tập bổ sung cho mục này.
 
-Sau khi sinh scores_ft/preds_ft trong NB5, thêm:
+Logic sau đã có sẵn trong NB5; không thêm lần nữa. `verify_baseline` chạy trước inference để xác minh bundle/context/eval. `score_adapter` kiểm tra saved adapter và training row trước model loading, rồi kiểm tra resolved revision trước generation. Sau output FT, helper nhận danh sách `baseline_raw['target']` để ghép cặp:
 
 ```python
-baseline_rows = json.loads(
-    (ROOT / 'results' / 'baseline_predictions.json').read_text(encoding='utf-8'))
-assert len(baseline_rows) == len(target) == len(preds_ft)
-paired = []
-for i, (row, bp, fp) in enumerate(zip(target, baseline_rows, preds_ft)):
-    assert bp['i'] == i and bp['ticket'] == row['input']
-    assert bp['label'] == row['label']
-    bscore = ev.triage_field_accuracy(bp['baseline_b_pred'], row['label'])
-    fscore = ev.triage_field_accuracy(fp, row['label'])
-    paired.append({
-        'i': i, 'ticket': row['input'], 'label': row['label'],
-        'baseline_b_pred': bp['baseline_b_pred'], 'ft_pred': fp,
-        'baseline_b_score': bscore, 'ft_score': fscore, 'delta': fscore - bscore,
-    })
+# API đang dùng trong NB5; các biến ROOT/CONTEXT/target/regression/preds_ft là của NB5.
+baseline_raw = evidence.verify_baseline(ROOT, CONTEXT, target, regression)
+paired = evidence.pair_qualitative(target, baseline_raw['target'], preds_ft)
+paired_summary = evidence.summarize_pairs(paired)
 report.write_json(paired, 'paired_qualitative.json', results_dir=ROOT / 'results')
-print('FT losses:', sum(row['delta'] < 0 for row in paired))
-print('FT wins:', sum(row['delta'] > 0 for row in paired))
+report.write_json(paired_summary, 'paired_qualitative_summary.json', results_dir=ROOT / 'results')
 ```
 
+Chạy stage và đọc artifact đã sinh, không sửa baseline đã sealed:
+
 ```python
+import json, pathlib, subprocess, sys
+ROOT = pathlib.Path.cwd()
 subprocess.run([sys.executable, 'scripts/colab_run.py', 'nb5'], check=True)
+paired = json.loads((ROOT / 'results' / 'paired_qualitative.json').read_text(encoding='utf-8'))
+summary = json.loads((ROOT / 'results' / 'paired_qualitative_summary.json').read_text(encoding='utf-8'))
+print('FT losses:', summary['losses'])
+print('FT wins:', summary['wins'])
+print('FT ties:', summary['ties'])
+print('Selected real examples:', len(summary['selected_examples']))
+if not summary['two_loss_examples_available']:
+    print('Chưa chứng minh yêu cầu >=2 ca FT thua baseline (b); báo số thực tế, không thay eval.')
 ```
 
 **Checkpoint:** full counts khớp baseline, bốn nhóm có số, autopsy đủ run, verdict có lý do; ví dụ được chọn từ paired evidence. FAILED là kết quả hợp lệ, không sửa threshold/prompt/eval để đổi thành PASSED.
