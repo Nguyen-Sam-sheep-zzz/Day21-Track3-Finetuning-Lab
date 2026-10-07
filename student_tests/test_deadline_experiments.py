@@ -299,3 +299,41 @@ def test_rank_numeric_nan_log_retains_explicit_provenance_in_strict_json(experim
     assert any(entry['path'] == '$.ranks.8.training_log_history[0].grad_norm' and entry['value'] == 'NaN' for entry in raw['nonfinite_serialization']['entries'])
     assert raw['nonfinite_serialization']['counts'] == {'NaN': 2, '+Infinity': 2, '-Infinity': 2}
     assert logs[0]['grad_norm'] != logs[0]['grad_norm']  # Source logs retain original numeric NaN.
+
+
+@pytest.mark.parametrize('stage,existing', [('regression', 'bonus_results/regression_followup.json'), ('b1', 'bonus_results/merge_check.json'), ('b1', 'bonus_results/hot_swap.json'), ('b4', 'bonus_results/rank_sweep.json'), ('b4', 'bonus_results/bonus_runs.csv'), ('b4', 'bonus_adapters/rank_8/adapter_model.safetensors'), ('b4', 'bonus_adapters/rank_64/adapter_model.safetensors')])
+def test_existing_stage_evidence_refuses_rerun_without_loading_or_writing(experiment, stage, existing):
+    path = experiment.root / existing
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(b'prior attempt evidence, preserve exact bytes')
+    before = {str(p.relative_to(experiment.root)): p.read_bytes() for p in experiment.root.rglob('*') if p.is_file()}
+    runner, backend = make_runner(experiment)
+    with pytest.raises(ValueError, match='existing supplementary'):
+        runner.run([stage])
+    after = {str(p.relative_to(experiment.root)): p.read_bytes() for p in experiment.root.rglob('*') if p.is_file()}
+    assert before == after
+    assert not backend.calls
+
+
+def test_distinct_invocations_keep_each_stage_status_unchanged(experiment):
+    runner, backend = make_runner(experiment)
+    runner.run(['regression'])
+    regression_status = experiment.root / 'bonus_results/run_status_regression.json'
+    prior_bytes = regression_status.read_bytes()
+    runner.run(['b1'])
+    assert regression_status.read_bytes() == prior_bytes
+    b1 = json.loads((experiment.root / 'bonus_results/run_status_b1.json').read_text())
+    assert b1['stage'] == 'b1' and b1['result']['status'] == 'complete'
+    assert b1['seal_unchanged'] is True
+    assert json.loads(regression_status.read_text())['result']['status'] == 'complete'
+
+
+def test_b4_second_attempt_preserves_complete_rank_evidence(experiment):
+    runner, backend = make_runner(experiment)
+    runner.run(['b4'])
+    path = experiment.root / 'bonus_results/rank_sweep.json'
+    original = path.read_bytes()
+    calls = list(backend.calls)
+    with pytest.raises(ValueError, match='existing supplementary'):
+        runner.run(['b4'])
+    assert path.read_bytes() == original and backend.calls == calls

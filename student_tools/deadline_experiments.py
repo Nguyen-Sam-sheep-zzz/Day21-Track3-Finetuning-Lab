@@ -261,6 +261,22 @@ class Runner:
             'claim_scope': 'supplementary follow-up; original aggregate verdict and baseline files remain sealed',
         }
 
+    def assert_new_attempt(self, stages):
+        """Fail before GPU loading or output writes if this stage has prior evidence."""
+        artifacts = {
+            'regression': ['regression_followup.json'],
+            'b1': ['merge_check.json', 'hot_swap.json'],
+            'b4': ['rank_sweep.json', 'bonus_runs.csv'],
+        }
+        for stage in stages:
+            paths = [self.output / name for name in artifacts[stage]]
+            paths.append(self.output / f'run_status_{stage}.json')
+            if stage == 'b4':
+                paths.extend(self.root / 'bonus_adapters' / f'rank_{rank}' for rank in (8, 16, 64))
+            existing = [p.relative_to(self.root).as_posix() for p in paths if p.exists()]
+            if existing:
+                raise ValueError(f'existing supplementary evidence for {stage}: {existing}; preserve the prior attempt separately before starting another')
+
     def allowed(self, seconds):
         return (self.stop_at - self.now()).total_seconds() >= seconds
 
@@ -407,6 +423,7 @@ class Runner:
     def run(self, stages):
         if not stages or len(stages) != len(set(stages)) or any(stage not in ('regression', 'b1', 'b4') for stage in stages):
             raise ValueError('stages must be distinct members of regression,b1,b4')
+        self.assert_new_attempt(stages)  # No prior attempt is overwritten by a retry.
         self.preflight()  # No GPU loading before frozen context and adapter checks.
         self.original_seal = seal(self.root)
         self.metadata['sealed_inventory_sha256'] = hashlib.sha256(json.dumps(self.original_seal, sort_keys=True).encode()).hexdigest()
@@ -427,6 +444,9 @@ class Runner:
                 self.write('run_status.json', status)
         finally:
             status['seal_unchanged'] = seal(self.root) == self.original_seal
+            for stage, result in status['stages'].items():
+                self.write(f'run_status_{stage}.json', {'stage': stage, 'result': result,
+                                                     'seal_unchanged': status['seal_unchanged']})
             self.write('run_status.json', status)
             if not status['seal_unchanged']:
                 raise ValueError('sealed original artifacts changed during supplementary experiment')
