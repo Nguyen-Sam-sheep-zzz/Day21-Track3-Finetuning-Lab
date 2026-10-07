@@ -217,6 +217,48 @@ def verify_model_revisions(root: pathlib.Path, model, tokenizer) -> None:
             raise ValueError(f'baseline model/tokenizer revision mismatch: {name}')
 
 
+
+def verify_adapter_provenance(root: pathlib.Path, adapter_dir: pathlib.Path, *,
+                              load_in_4bit: bool = False) -> None:
+    """Check saved adapter/training metadata before loading the base or adapter.
+
+    The latest row for this adapter key is the lab's existing resume convention.
+    Model IDs/tier/precision are required; saved revisions are compared when present.
+    QLoRA may differ from baseline quantization, but must match its own training row.
+    """
+    root, adapter_dir = pathlib.Path(root), pathlib.Path(adapter_dir)
+    manifest, _, _ = _read_bundle(root / 'results')
+    context = manifest['context']
+    try:
+        adapter = json.loads((adapter_dir / 'adapter_config.json').read_text(encoding='utf-8'))
+        if not isinstance(adapter, dict) or not adapter.get('base_model_name_or_path'):
+            raise ValueError('adapter base model metadata is missing')
+        if adapter['base_model_name_or_path'] != context['model']:
+            raise ValueError('adapter base model mismatch with baseline')
+        with (root / 'results' / 'runs.csv').open(encoding='utf-8', newline='') as fh:
+            matches = [row for row in csv.DictReader(fh) if row.get('run') == adapter_dir.name]
+        if not matches:
+            raise ValueError(f'adapter training record missing for {adapter_dir.name}')
+        row = matches[-1]
+        for field in ('model', 'tier', 'precision'):
+            if not row.get(field) or row[field] != context[field]:
+                raise ValueError(f'adapter training metadata mismatch or missing: {field}')
+        quantized = (row.get('load_in_4bit') or '').strip().lower()
+        if quantized not in ('true', 'false') or (quantized == 'true') != load_in_4bit:
+            raise ValueError('adapter training quantization mismatch or missing: load_in_4bit')
+        saved_revisions = [
+            ('adapter revision', adapter.get('revision'), 'model_revision'),
+            ('adapter model_revision', adapter.get('model_revision'), 'model_revision'),
+            ('training model_revision', row.get('model_revision'), 'model_revision'),
+            ('training tokenizer_revision', row.get('tokenizer_revision'), 'tokenizer_revision'),
+        ]
+        for source, saved, field in saved_revisions:
+            if saved not in (None, '') and saved != manifest.get(field):
+                raise ValueError(f'adapter training revision mismatch or unavailable baseline: {source}')
+    except (OSError, TypeError, KeyError, json.JSONDecodeError, csv.Error) as exc:
+        raise ValueError(f'adapter training provenance is missing or invalid: {exc}') from exc
+
+
 def pair_qualitative(target: list[dict], baseline_rows: list[dict], ft_preds: list[str]) -> list[dict]:
     """Full untruncated outputs paired by validated index, exact ticket and exact label."""
     _check_target_identity(target, baseline_rows)

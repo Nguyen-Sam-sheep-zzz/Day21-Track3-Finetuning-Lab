@@ -64,6 +64,8 @@ def score_adapter(adapter_dir: pathlib.Path, system_prompt: str | None, *,
     and calls the result "what QLoRA costs you". Take the flag from the run's own spec,
     never from the default.
     """
+    # The freshly loaded NB5 base alone cannot prove which base trained this adapter.
+    evidence.verify_adapter_provenance(ROOT, adapter_dir, load_in_4bit=load_in_4bit)
     model, tok = generate.load_base(TIER, load_in_4bit=load_in_4bit)
     # A moving model/tokenizer revision would invalidate the comparison, even at the same ID.
     evidence.verify_model_revisions(ROOT, model, tok)

@@ -279,6 +279,7 @@ def test_notebooks_reuse_generated_outputs_and_emit_true_paired_examples(noteboo
     runpy.run_path(str(scripts / '02_baselines.py'))
     assert (x.root / 'results' / 'experiment_manifest.json').exists(), 'NB2 did not capture provenance'
     assert calls['generate'] == 4  # a/b x target/regression; evidence must add zero sweeps.
+    write_training_metadata(x)
     runpy.run_path(str(scripts / '05_evaluate_and_verdict.py'))
     assert calls['generate'] == 6  # NB5 correct target/regression only; no contrast adapters exist.
     pairs = json.loads((x.root / 'results' / 'paired_qualitative.json').read_text(encoding='utf-8'))
@@ -310,3 +311,112 @@ def test_nb2_rejects_posttraining_rerun_before_any_model_or_gpu_call(notebook_ru
     with pytest.raises(ValueError, match='training'):
         runpy.run_path(str(scripts / '02_baselines.py'))
     assert calls == {'load': 0, 'generate': 0}
+
+
+
+def write_training_metadata(x, key='correct', *, base=None, row_changes=None, revision=None):
+    from labkit import report
+    directory = x.root / 'adapters' / key
+    directory.mkdir(parents=True, exist_ok=True)
+    adapter = {'base_model_name_or_path': base or get_tier('T4').model_id, 'revision': revision}
+    (directory / 'adapter_config.json').write_text(json.dumps(adapter), encoding='utf-8')
+    row = {'run': key, 'model': get_tier('T4').model_id, 'tier': 'T4', 'precision': 'fp16',
+           'load_in_4bit': key == 'qlora'}
+    row.update(row_changes or {})
+    report.append_row(row, results_dir=x.root / 'results')
+    return directory
+
+
+def adapter_guard(x, directory, **kwargs):
+    module = evidence()
+    assert hasattr(module, 'verify_adapter_provenance'), 'missing adapter training provenance guard'
+    return module.verify_adapter_provenance(x.root, directory, **kwargs)
+
+
+@pytest.mark.parametrize('mismatch', ['adapter_base', 'row_model', 'row_tier', 'row_precision', 'row_quantization'])
+def test_nb5_rejects_adapter_training_mismatch_before_gpu_boundary(notebook_runtime, mismatch):
+    import runpy
+    x, scripts, calls = notebook_runtime
+    save(x)
+    changes = {'row_model': {'model': 'other/base'}, 'row_tier': {'tier': 'BIGGPU'},
+               'row_precision': {'precision': 'bf16'}, 'row_quantization': {'load_in_4bit': True}}
+    write_training_metadata(x, base='other/base' if mismatch == 'adapter_base' else None,
+                            row_changes=changes.get(mismatch))
+    with pytest.raises(ValueError, match='adapter|training'):
+        runpy.run_path(str(scripts / '05_evaluate_and_verdict.py'))
+    assert calls == {'load': 0, 'generate': 0}
+
+
+@pytest.mark.parametrize('missing', ['config', 'base', 'runs', 'run', 'model', 'tier', 'precision', 'quantization'])
+def test_adapter_guard_rejects_missing_required_training_evidence(experiment, missing):
+    x = experiment
+    save(x)
+    directory = write_training_metadata(x)
+    if missing == 'config':
+        (directory / 'adapter_config.json').unlink()
+    elif missing == 'base':
+        (directory / 'adapter_config.json').write_text('{}', encoding='utf-8')
+    elif missing == 'runs':
+        (x.root / 'results' / 'runs.csv').unlink()
+    else:
+        field = {'run': 'run', 'model': 'model', 'tier': 'tier', 'precision': 'precision',
+                 'quantization': 'load_in_4bit'}[missing]
+        write_training_metadata(x, row_changes={field: '' if missing != 'run' else 'wrong_run'})
+        if missing == 'run':
+            path = x.root / 'results' / 'runs.csv'
+            path.write_text(path.read_text(encoding='utf-8').replace('correct,', 'wrong_run,'), encoding='utf-8')
+    with pytest.raises(ValueError, match='adapter|training'):
+        adapter_guard(x, directory)
+
+
+@pytest.mark.parametrize('key,quantized', [('correct', False), ('qlora', True)])
+def test_adapter_guard_allows_matching_correct_and_qlora_metadata(experiment, key, quantized):
+    x = experiment
+    save(x)
+    directory = write_training_metadata(x, key)
+    adapter_guard(x, directory, load_in_4bit=quantized)
+
+
+def test_adapter_guard_uses_latest_corresponding_training_row(experiment):
+    x = experiment
+    save(x)
+    directory = write_training_metadata(x, row_changes={'model': 'old/different-base'})
+    write_training_metadata(x)  # Latest correct row describes the current saved adapter.
+    write_training_metadata(x, 'qlora', row_changes={'model': 'unrelated/base'})
+    adapter_guard(x, directory)
+    write_training_metadata(x, row_changes={'model': 'latest/different-base'})
+    with pytest.raises(ValueError, match='training'):
+        adapter_guard(x, directory)
+
+
+@pytest.mark.parametrize('source', ['adapter', 'model_row', 'tokenizer_row'])
+@pytest.mark.parametrize('mismatch', [False, True])
+def test_saved_training_revisions_match_or_are_rejected(experiment, source, mismatch):
+    x = experiment
+    model = SimpleNamespace(config=SimpleNamespace(_commit_hash='model123'))
+    tok = SimpleNamespace(name_or_path=get_tier('T4').model_id, init_kwargs={'_commit_hash': 'token123'})
+    save(x, model=model, tokenizer=tok)
+    changes = {'model_revision': 'model123', 'tokenizer_revision': 'token123'}
+    if mismatch and source == 'model_row':
+        changes['model_revision'] = 'different'
+    if mismatch and source == 'tokenizer_row':
+        changes['tokenizer_revision'] = 'different'
+    directory = write_training_metadata(x, row_changes=changes,
+                                        revision='different' if mismatch and source == 'adapter' else 'model123')
+    if mismatch:
+        with pytest.raises(ValueError, match='revision'):
+            adapter_guard(x, directory)
+    else:
+        adapter_guard(x, directory)
+
+
+def test_nb5_matching_qlora_path_keeps_existing_inference_budget(notebook_runtime):
+    import runpy
+    x, scripts, calls = notebook_runtime
+    save(x)
+    write_training_metadata(x)
+    write_training_metadata(x, 'qlora')
+    runpy.run_path(str(scripts / '05_evaluate_and_verdict.py'))
+    assert calls == {'load': 2, 'generate': 3}  # correct target/regression + qlora target only
+    autopsy = json.loads((x.root / 'results' / 'autopsy.json').read_text(encoding='utf-8'))
+    assert [row['run'] for row in autopsy] == ['correct', 'qlora']
