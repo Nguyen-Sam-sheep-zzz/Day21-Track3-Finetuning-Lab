@@ -44,7 +44,8 @@ Product phải là toàn bộ tên sản phẩm xuất hiện **nguyên văn** t
 - Trùng input chuẩn hóa trong mỗi tập: **0**.
 - Trùng input chuẩn hóa train–eval: **0**.
 - Nhóm tình huống chung train–eval: **0**.
-- Trùng input chuẩn hóa với core train seed 250 dòng, eval target 50 dòng, eval regression 15 dòng: **0**. Không đọc hidden holdout.
+- Trùng prompt chuẩn hóa với core train seed 250 dòng, eval target 50 dòng, eval regression 15 dòng: **0**. Prompt core được lấy từ `input` nếu không rỗng; nếu rỗng hoặc chỉ có khoảng trắng thì lấy `instruction`, đúng với định dạng regression. Không đọc hidden holdout.
+- Fixture tổng hợp của bộ kiểm tra overlap đạt **4/4**: trùng instruction-only, fallback input chỉ có khoảng trắng, ưu tiên input có nội dung và mẫu không trùng. Fixture không được ghi vào core hoặc các tập custom.
 - Chuẩn hóa dùng Unicode NFKC, casefold, bỏ dấu câu và gộp khoảng trắng; không bỏ dấu tiếng Việt.
 - Kiểm tra từ vựng sau khi bỏ tên sản phẩm/câu nhãn chung: Jaccard cao nhất giữa một cặp train–eval là **0,35294**, ở nhóm ngày xuất kho và tủ nhận hàng. Chỉ là bộ lọc từ vựng, không chứng minh loại hết mọi tương đồng ngữ nghĩa.
 - Tác giả đã đọc mẫu lắp ghép thực tế của cả năm intent trên train và eval, cùng các câu positive/neutral. Đây là rà soát của tác giả AI, không thay thế thẩm định độc lập.

@@ -943,6 +943,24 @@ def normal(text):
     text = unicodedata.normalize("NFKC", text).casefold()
     return " ".join(re.sub(r"[^\w\s]", " ", text).split())
 
+def ticket_text(row):
+    """Core regression prompts live in instruction when input is blank."""
+    value = row.get("input")
+    return str(value).strip() if value and str(value).strip() else str(row.get("instruction") or "").strip()
+
+def exact_overlap(custom_prompts, original_rows):
+    return {normal(text) for text in custom_prompts} & {normal(ticket_text(row)) for row in original_rows}
+
+def check_overlap_fixture():
+    """Synthetic fixture; never add it to original or training/evaluation data."""
+    prompt = "Thủ đô của Việt Nam là thành phố nào?"
+    fixture = {"input": "", "instruction": prompt}
+    assert exact_overlap([prompt], [fixture]) == {normal(prompt)}, "instruction-only regression match missed"
+    assert ticket_text({"input": "  ", "instruction": prompt}) == prompt, "whitespace-only input fallback missed"
+    assert ticket_text({"input": "Ticket thực tế", "instruction": prompt}) == "Ticket thực tế", "nonempty input must take priority"
+    assert not exact_overlap(["Nội dung khác hoàn toàn"], [fixture]), "unrelated fixture falsely matched"
+    return {"status": "passed", "cases": 4, "scope": "synthetic instruction-only/whitespace fallback, input priority, nonmatch; no original files altered"}
+
 def read_jsonl(path):
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
@@ -1032,13 +1050,14 @@ def audit(sets, groups, tokenizer_dir=None):
     if exact or group_overlap:
         errors.append("train/eval contamination")
     core_comparisons = {}
-    all_custom = {normal(row["input"]) for rows in sets.values() for row in rows}
+    all_custom = [ticket_text(row) for rows in sets.values() for row in rows]
     for filename in ["train_seed.jsonl", "eval_target.jsonl", "eval_regression.jsonl"]:
         path = ROOT / "data" / filename
         original = read_jsonl(path)
-        overlap = all_custom & {normal(row["input"]) for row in original}
+        overlap = exact_overlap(all_custom, original)
         core_comparisons[filename] = {
             "rows_checked": len(original), "normalized_exact_input_overlap": len(overlap),
+            "prompt_extraction": "nonempty input, else instruction",
             "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
         }
         if overlap:
@@ -1070,6 +1089,7 @@ def audit(sets, groups, tokenizer_dir=None):
         "sets": by_split, "schema_errors": errors,
         "train_eval_normalized_exact_overlap": len(exact), "train_eval_family_overlap": sorted(group_overlap),
         "original_core_comparisons": core_comparisons,
+        "overlap_checker_regression_fixture": check_overlap_fixture(),
         "near_duplicate_screen": {"method": "max content-word Jaccard after removing product/common signals; lexical screening only", "highest_cross_split_pair": max_pair},
         "tokenizer": token_audit(sets, tokenizer_dir),
         "semantic_review": {

@@ -63,18 +63,26 @@
     "train_seed.jsonl": {
       "rows_checked": 250,
       "normalized_exact_input_overlap": 0,
+      "prompt_extraction": "nonempty input, else instruction",
       "sha256": "2a58fe45d7315da0fb2934495cb7ec6717254f6df95d9560d748b10aa45409e3"
     },
     "eval_target.jsonl": {
       "rows_checked": 50,
       "normalized_exact_input_overlap": 0,
+      "prompt_extraction": "nonempty input, else instruction",
       "sha256": "2991050fefb848c8bf3fdbc021badea9500f758d90717d7a94ae2f9b09b8915e"
     },
     "eval_regression.jsonl": {
       "rows_checked": 15,
       "normalized_exact_input_overlap": 0,
+      "prompt_extraction": "nonempty input, else instruction",
       "sha256": "9c6ba90ea86e28fbc7102bf4cc4cb1e23c4668cf95bfcae55c3c114d34dc133b"
     }
+  },
+  "overlap_checker_regression_fixture": {
+    "status": "passed",
+    "cases": 4,
+    "scope": "synthetic instruction-only/whitespace fallback, input priority, nonmatch; no original files altered"
   },
   "near_duplicate_screen": {
     "method": "max content-word Jaccard after removing product/common signals; lexical screening only",
