@@ -20,3 +20,4 @@ bonus_data/**/*.md text eol=lf
 student_tools/*.py text eol=lf
 student_tests/test_deadline_experiments.py text eol=lf
 colab/Lab21_Deadline_Followup.ipynb text eol=lf
+student_tests/test_followup_notebook.py text eol=lf

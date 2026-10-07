@@ -1,3 +1,5 @@
+> **Cập nhật08/10:** notebook followup đã bỏ mốc23:20 cố định và dùng cửa sổ2giờ. Xem HUONG_DAN_HOAN_THIEN.md; phần mô tả hạn07/10 dưới đây là lịch sử.
+
 > Core NB1–NB5 đã chạy ngày 07/10/2026 và kết quả được giữ trong repo. Hướng dẫn bên dưới mô tả lần chạy gốc; không chạy lại NB2 trên thí nghiệm đã train. Thí nghiệm gốc dùng commit90679f9. Report và READINESS hiện ghi đầy đủ trạng thái/thiếu hụt.
 
 # Chạy Lab 21 trên Colab — Nguyễn Nhân Sâm · 2A202602672

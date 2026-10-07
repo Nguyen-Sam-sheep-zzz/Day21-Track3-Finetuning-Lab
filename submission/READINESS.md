@@ -42,3 +42,5 @@ Notebook bổ sung: https://colab.research.google.com/github/Nguyen-Sam-sheep-zz
 mốc dừng23:20; chỉ có log/status, chưa thực hiện regression/B1/B4. Đã kiểm tra và lưu
 nguyên trạng trong results/followup_*. Core không đổi; rubric3.4, bonus và phản tư còn
 giới hạn đã công bố. Không tuyên bố ZIP được tạo nghĩa là phép đo đã hoàn thành.
+
+Cập nhật08/10: notebook supplementary đã sửa mốc dừng cố định thành cửa sổ2giờ và kiểm tra file thực tế trước khi báo HOÀN TẤT. 211 CPUtests đạt,3skip; chưa có measurement mới. Chạy theo HUONG_DAN_HOAN_THIEN.md.

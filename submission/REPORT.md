@@ -295,3 +295,16 @@ Mục3.4 vẫn chưa có hai output FT thua để phân tích. Mã ghi seal_unch
 đối chiếu local xác nhận các file baseline/verdict/runs/cặp target core không thay đổi.
 Receipt và bản sao từng file được giữ trong results/followup_received_checkpoints.json
 và results/followup_*.json/txt. Core measured verdict FAILED và các bảng số liệu giữ nguyên.
+
+## 12. Sửa notebook supplementary ngày08/10/2026
+
+Nguyên nhân ba attempt23:49 incomplete là mốc dừng tuyệt đối23:20 đã hết hạn.
+Notebook colab/Lab21_Deadline_Followup.ipynb đã đổi sang cửa sổ2giờ từ lúc khai báo
+hàm chạy và thư mục attempt mới mỗi lần setup. Sau khi tải ZIP, ô kiểm tra exit0,
+statuscomplete, seal_unchanged=true và đầy đủ file/15regression hoặc50target;
+incomplete, thiếu file hoặc mergegateFAIL báo lỗi rõ ràng. Không chỉ dựa vào ZIP tạo được.
+
+Các test mới được chạy với bản cũ:7fail3pass đúng các lỗi đã xác định; sau sửa10pass.
+Bộ toàn repo **211 passed, 3 skipped**, lưu results/notebook_recovery_tests_cpu.txt.
+Đây là kiểm tra mã CPU, chưa có thêm số đo GPU. Ba attemptincomplete và toàn bộ số
+liệu/baseline/verdict core giữ nguyên. Xem HUONG_DAN_HOAN_THIEN.md để chạy bổ sung.

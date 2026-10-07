@@ -5,7 +5,7 @@
 [  ok  ] data/train_seed.jsonl                            250 rows
 [  ok  ] data/eval_target.jsonl                           50 rows
 [  ok  ] data/eval_regression.jsonl                       15 rows
-[  ok  ] unit tests                                       116 passed, 3 skipped in 0.68s
+[  ok  ] unit tests                                       116 passed, 3 skipped in 0.38s
 [  ok  ] results/template_check.json                      
 [  ok  ] results/mask_proof.json                          
 [  ok  ] results/token_stats.json                         
@@ -14,7 +14,7 @@
 [  ok  ] results/verdict.json                             
 [  ok  ] results/autopsy.json                             
 [  ok  ] submission/REPORT.md                             
-[  ok  ] REPORT.md filled in                              ~3851 words
+[  ok  ] REPORT.md filled in                              ~3975 words
 [  ok  ] mask proof asserts                               
 [  ok  ] full eval set used                               50 target items
 [  ok  ] baseline (b) prompt unmodified                   
