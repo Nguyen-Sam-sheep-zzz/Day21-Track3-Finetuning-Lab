@@ -16,13 +16,13 @@
   "files": [
     {
       "path": "submission/REPORT.md",
-      "bytes": 24858,
-      "sha256": "c403dfd7e9b1ee3ca59513eb22e605fab75d625a41d15f7b2e73939e0f287d0e"
+      "bytes": 25949,
+      "sha256": "a362b7c15ffd4a30b58e09874585c7ab8cd1a3ea8e39f973765a247ccde9426b"
     },
     {
       "path": "submission/READINESS.md",
-      "bytes": 4373,
-      "sha256": "2db39f7846070f9decbf4ea1d7a69d16014fc9411e3a757a3a6c08d38ea7628a"
+      "bytes": 4782,
+      "sha256": "c5a396e717de129d695853c7026960c958b797f7576966bcc852e976b5ba23aa"
     },
     {
       "path": "results/adapter_finiteness.json",
@@ -98,6 +98,101 @@
       "path": "results/experiment_manifest.json",
       "bytes": 1862,
       "sha256": "9a23f34d22567ec840ba22263b751a53995135604bae81042934bd4a6993d979"
+    },
+    {
+      "path": "results/followup_b1_b1_20261007T164951Z.txt",
+      "bytes": 165,
+      "sha256": "2752ba4c77bf102ac3e736d8329578fd5c3ad189e57c0af0c0d7c247e547049d"
+    },
+    {
+      "path": "results/followup_b1_followup_helper_receipt.json",
+      "bytes": 220,
+      "sha256": "ef2fab390567d5c13e77626ba0df9fccb3849517ac50013412ce5f31226c84f9"
+    },
+    {
+      "path": "results/followup_b1_regression_20261007T164945Z.txt",
+      "bytes": 173,
+      "sha256": "d22b3d2de5183e8e56b88bd2cfa3d311567cf82e01caead39ba330d1ff285e94"
+    },
+    {
+      "path": "results/followup_b1_run_status.json",
+      "bytes": 4504,
+      "sha256": "a1f6aeddcb9f579823f8ff6d61cd1ec30f4d7ff2a29670a91b806e4b3ac955bf"
+    },
+    {
+      "path": "results/followup_b1_run_status_b1.json",
+      "bytes": 4499,
+      "sha256": "ba59922f8e93c3c069300125ccb907cf2376351038bea466b5603021f982bdea"
+    },
+    {
+      "path": "results/followup_b1_run_status_regression.json",
+      "bytes": 4507,
+      "sha256": "74c8f2fa72721de30abbe8acd83628fe35174edcd12324e99bd72a02ecce79aa"
+    },
+    {
+      "path": "results/followup_b4_b1_20261007T164951Z.txt",
+      "bytes": 165,
+      "sha256": "2752ba4c77bf102ac3e736d8329578fd5c3ad189e57c0af0c0d7c247e547049d"
+    },
+    {
+      "path": "results/followup_b4_b4_20261007T164955Z.txt",
+      "bytes": 165,
+      "sha256": "1563ade210636f5966d84ace81f8fba264095e5f7eddcac8f3a13b48fccffb1e"
+    },
+    {
+      "path": "results/followup_b4_followup_helper_receipt.json",
+      "bytes": 220,
+      "sha256": "ef2fab390567d5c13e77626ba0df9fccb3849517ac50013412ce5f31226c84f9"
+    },
+    {
+      "path": "results/followup_b4_regression_20261007T164945Z.txt",
+      "bytes": 173,
+      "sha256": "d22b3d2de5183e8e56b88bd2cfa3d311567cf82e01caead39ba330d1ff285e94"
+    },
+    {
+      "path": "results/followup_b4_run_status.json",
+      "bytes": 4504,
+      "sha256": "26c24bdfc406f8fb786d2a9bad69fd7604332e0b6a0ba023426e61461f8b061d"
+    },
+    {
+      "path": "results/followup_b4_run_status_b1.json",
+      "bytes": 4499,
+      "sha256": "ba59922f8e93c3c069300125ccb907cf2376351038bea466b5603021f982bdea"
+    },
+    {
+      "path": "results/followup_b4_run_status_b4.json",
+      "bytes": 4499,
+      "sha256": "5332ef26ce4d0666d130e2769b102e7e4d835747e17d87d043b8eb89c5222ca7"
+    },
+    {
+      "path": "results/followup_b4_run_status_regression.json",
+      "bytes": 4507,
+      "sha256": "74c8f2fa72721de30abbe8acd83628fe35174edcd12324e99bd72a02ecce79aa"
+    },
+    {
+      "path": "results/followup_received_checkpoints.json",
+      "bytes": 7100,
+      "sha256": "604fdda80561b149071768c024da45e6957149a996bef477fea9210b3bb25a82"
+    },
+    {
+      "path": "results/followup_regression_followup_helper_receipt.json",
+      "bytes": 220,
+      "sha256": "ef2fab390567d5c13e77626ba0df9fccb3849517ac50013412ce5f31226c84f9"
+    },
+    {
+      "path": "results/followup_regression_regression_20261007T164945Z.txt",
+      "bytes": 173,
+      "sha256": "d22b3d2de5183e8e56b88bd2cfa3d311567cf82e01caead39ba330d1ff285e94"
+    },
+    {
+      "path": "results/followup_regression_run_status.json",
+      "bytes": 4512,
+      "sha256": "0a41c196bf9b7d92e8faeeaf07e55ec1b6518e6dc4a7fab21575e14af8274147"
+    },
+    {
+      "path": "results/followup_regression_run_status_regression.json",
+      "bytes": 4507,
+      "sha256": "74c8f2fa72721de30abbe8acd83628fe35174edcd12324e99bd72a02ecce79aa"
     },
     {
       "path": "results/mask_agreement_local.txt",
@@ -182,7 +277,7 @@
     {
       "path": "results/verify.txt",
       "bytes": 2049,
-      "sha256": "5ffe4897d18073d7df8d22fe39e207a1fe6fea9b0430cdc21ae4611287dc33e9"
+      "sha256": "3c040d93458d26238216d28a96c971b53263252604357f38750ef70380d286a7"
     },
     {
       "path": "notebooks/01_data_and_mask.py",

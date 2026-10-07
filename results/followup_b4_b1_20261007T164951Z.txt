@@ -1,0 +1,9 @@
+{
+  "stages": {
+    "b1": {
+      "status": "incomplete",
+      "reason": "deadline or insufficient minimum admission reserve"
+    }
+  },
+  "seal_unchanged": true
+}

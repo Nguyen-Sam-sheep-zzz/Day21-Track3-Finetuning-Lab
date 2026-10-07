@@ -280,3 +280,18 @@ receipt nằm trong submission/hf_preparation_receipt.json. Chưa upload Hub, ch
 B5; B3 chưa thực hiện. Các công việc chuẩn bị này không chuyển thành điểm thưởng measured.
 Trợ lý chưa chạy được Colab vì công cụ browser không khởi tạo; cần học viên mở notebook T4
 và cung cấp các ZIP mới. Không tuyên bố đã nộp LMS hoặc hoàn thành toàn bộ rubric.
+
+## 11. Kiểm tra ba ZIP bổ sung đã nhận
+
+Ba ZIP followup regression, B1 và B4 được nhận và kiểm tra CRC/hash, helper commit,
+context full50/15 và status. Cả ba đều ghi **incomplete**, với lý do
+`deadline or insufficient minimum admission reserve`. Các invocation được tạo lúc
+23:49:45–23:49:56 ngày07/10/2026 (UTC16:49), sau mốc dừng23:20 (UTC16:20).
+Do guard thời gian, các phép đo không được bắt đầu. ZIP chỉ chứa status, log và receipt;
+không có regression_followup.json, merge_check.json, hot_swap.json hay rank_sweep.json.
+
+Không có số đo GPU mới hoặc điểm thưởng B1/B4 được xác nhận từ ba ZIP này.
+Mục3.4 vẫn chưa có hai output FT thua để phân tích. Mã ghi seal_unchanged=true;
+đối chiếu local xác nhận các file baseline/verdict/runs/cặp target core không thay đổi.
+Receipt và bản sao từng file được giữ trong results/followup_received_checkpoints.json
+và results/followup_*.json/txt. Core measured verdict FAILED và các bảng số liệu giữ nguyên.

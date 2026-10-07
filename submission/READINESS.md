@@ -37,3 +37,8 @@ Nếu bổ sung ví dụ regression, dùng notebook local output/Lab21_Regressio
 Học viên trực tiếp nộp LMS hoặc đường dẫn theo yêu cầu lớp. Gói local và remote branch không đồng nghĩa đã nộp bài.
 
 Notebook bổ sung: https://colab.research.google.com/github/Nguyen-Sam-sheep-zzz/Day21-Track3-Finetuning-Lab/blob/feature/lab21-finetuning/colab/Lab21_Deadline_Followup.ipynb
+
+Đã nhận ba ZIP bổ sung ngày07/10 lúc23:49. Cả ba status=incomplete do bắt đầu sau
+mốc dừng23:20; chỉ có log/status, chưa thực hiện regression/B1/B4. Đã kiểm tra và lưu
+nguyên trạng trong results/followup_*. Core không đổi; rubric3.4, bonus và phản tư còn
+giới hạn đã công bố. Không tuyên bố ZIP được tạo nghĩa là phép đo đã hoàn thành.

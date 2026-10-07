@@ -1,0 +1,147 @@
+{
+  "stage": "b4",
+  "result": {
+    "status": "incomplete",
+    "reason": "deadline or insufficient minimum admission reserve"
+  },
+  "seal_unchanged": true,
+  "metadata": {
+    "script": "student_tools/deadline_experiments.py",
+    "script_sha256": "594267585022da4be5d002af50301cad49043ab388e197a99a018c8dbdcc8bef",
+    "source_commit": "90679f91842e9f42c9192b9c5eab316935705e9c",
+    "original_source_commit": "90679f91842e9f42c9192b9c5eab316935705e9c",
+    "created_at_utc": "2026-10-07T16:49:56.011078+00:00",
+    "stop_at_utc": "2026-10-07T16:20:00+00:00",
+    "context": {
+      "model": "unsloth/Qwen3.5-4B",
+      "tier": "T4",
+      "seed": 42,
+      "max_length": 1024,
+      "epochs": 2.0,
+      "precision": "fp16",
+      "eval_limit": null,
+      "n_target": 50,
+      "n_regression": 15,
+      "smoke_mode": false,
+      "optimized_prompt_sha": "719e74d3b62320539bde0a5645eb20fc989d86ce2e5b4257d520f43ffe7caead",
+      "naive_prompt_sha": "7ccc19ec695fa31e97b407b066e72554ed834507fc2c176e766a010bb44a8b4a",
+      "file_sha256": {
+        "data/eval_target.jsonl": "2991050fefb848c8bf3fdbc021badea9500f758d90717d7a94ae2f9b09b8915e",
+        "data/eval_regression.jsonl": "9c6ba90ea86e28fbc7102bf4cc4cb1e23c4668cf95bfcae55c3c114d34dc133b",
+        "data/train_seed.jsonl": "2a58fe45d7315da0fb2934495cb7ec6717254f6df95d9560d748b10aa45409e3",
+        "data/split/train.jsonl": "f7d033740c26de4d2de629b8894716793087e82e44e37a572e9bdebac0a2a905",
+        "data/split/val.jsonl": "82a260e580549e8ee70ea048c0d611b9ab673c31d8062edb5772d9787fddfab5"
+      }
+    },
+    "environment": {
+      "python": "3.13.15",
+      "torch": "2.11.0+cu130",
+      "transformers": "5.18.0",
+      "tokenizers": "0.23.2",
+      "peft": "0.21.1",
+      "trl": "1.14.2",
+      "accelerate": "1.15.0",
+      "datasets": "5.1.0",
+      "bitsandbytes": "0.50.2",
+      "unsloth": "not installed",
+      "safetensors": "0.8.0",
+      "pytest": "8.4.2"
+    },
+    "expected_environment": {
+      "python": "3.13.15",
+      "torch": "2.11.0+cu130",
+      "transformers": "5.18.0",
+      "tokenizers": "0.23.2",
+      "peft": "0.21.1",
+      "trl": "1.14.2",
+      "accelerate": "1.15.0",
+      "datasets": "5.1.0",
+      "bitsandbytes": "0.50.2",
+      "unsloth": "not installed",
+      "safetensors": "0.8.0",
+      "pytest": "8.4.2"
+    },
+    "package_version_comparison": {
+      "python": {
+        "expected": "3.13.15",
+        "actual": "3.13.15",
+        "match": true
+      },
+      "torch": {
+        "expected": "2.11.0+cu130",
+        "actual": "2.11.0+cu130",
+        "match": true
+      },
+      "transformers": {
+        "expected": "5.18.0",
+        "actual": "5.18.0",
+        "match": true
+      },
+      "tokenizers": {
+        "expected": "0.23.2",
+        "actual": "0.23.2",
+        "match": true
+      },
+      "peft": {
+        "expected": "0.21.1",
+        "actual": "0.21.1",
+        "match": true
+      },
+      "trl": {
+        "expected": "1.14.2",
+        "actual": "1.14.2",
+        "match": true
+      },
+      "accelerate": {
+        "expected": "1.15.0",
+        "actual": "1.15.0",
+        "match": true
+      },
+      "datasets": {
+        "expected": "5.1.0",
+        "actual": "5.1.0",
+        "match": true
+      },
+      "bitsandbytes": {
+        "expected": "0.50.2",
+        "actual": "0.50.2",
+        "match": true
+      },
+      "unsloth": {
+        "expected": "not installed",
+        "actual": "not installed",
+        "match": true
+      },
+      "safetensors": {
+        "expected": "0.8.0",
+        "actual": "0.8.0",
+        "match": true
+      },
+      "pytest": {
+        "expected": "8.4.2",
+        "actual": "8.4.2",
+        "match": true
+      }
+    },
+    "original_model_revision": null,
+    "original_tokenizer_revision": null,
+    "revision_caution": "Original model/tokenizer revision unavailable; ID and artifact checks cannot prove an identical moving remote revision.",
+    "generation": {
+      "do_sample": false,
+      "enable_thinking": false,
+      "batch_size": 4
+    },
+    "claim_scope": "supplementary follow-up; original aggregate verdict and baseline files remain sealed",
+    "sealed_inventory_sha256": "a9fd3d56bc7c987946dd1eb52b27b7470949310f20542fd9080bb7b80b9d9c7b"
+  },
+  "nonfinite_serialization": {
+    "policy": "nonfinite numeric values encoded as explicit named strings; original paths and types retained",
+    "count": 0,
+    "counts": {
+      "NaN": 0,
+      "+Infinity": 0,
+      "-Infinity": 0
+    },
+    "entries": []
+  }
+}

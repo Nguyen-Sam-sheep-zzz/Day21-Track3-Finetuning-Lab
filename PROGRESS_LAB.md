@@ -32,3 +32,8 @@ Công cụ điều khiển Colab lỗi khởi tạo; GPU cục bộ GTX1650 4GB 
 Gói core đã có và được bảo toàn; không sửa gate để biến FAILED thành PASS.
 
 Kiểm tra mã bổ sung cuối: 201 passed, 3 skipped (results/supplementary_tests_cpu.txt). Verify UTF-8: 26 đạt, 1 cảnh báo, 0 lỗi. Không có kết quả GPU bổ sung tại thời điểm ghi này.
+
+Đã nhận ba ZIP bổ sung ngày07/10 lúc23:49. Cả ba status=incomplete do bắt đầu sau
+mốc dừng23:20; chỉ có log/status, chưa thực hiện regression/B1/B4. Đã kiểm tra và lưu
+nguyên trạng trong results/followup_*. Core không đổi; rubric3.4, bonus và phản tư còn
+giới hạn đã công bố. Không tuyên bố ZIP được tạo nghĩa là phép đo đã hoàn thành.
