@@ -262,3 +262,40 @@ def test_real_merge_invokes_safe_peft_merge(experiment):
     model = SimpleNamespace(merge_and_unload=lambda **kw: (calls.append(kw) or merged))
     assert backend.merge(model) is merged
     assert calls == [{'safe_merge': True}, 'eval']
+
+
+def test_merge_improvement_above_one_percent_passes_non_drop_gate(experiment):
+    runner, backend = make_runner(experiment)
+    calls = []
+    def predict(model, tok, prompts, **kwargs):
+        calls.append(kwargs['label'])
+        preds = [experiment.good] * len(prompts)
+        if kwargs['label'] == 'correct/before-merge':
+            preds[:5] = ['bad'] * 5
+        return preds, 1.0
+    backend.generate = predict
+    runner.run(['b1'])
+    raw = json.loads((experiment.root / 'bonus_results/merge_check.json').read_text())
+    assert raw['target_delta'] > .01 and raw['passed'] is True
+
+
+def test_rank_numeric_nan_log_retains_explicit_provenance_in_strict_json(experiment):
+    runner, backend = make_runner(experiment)
+    original_train = backend.train_rank
+    logs = [{'step': 5, 'loss': .7, 'grad_norm': float('nan')}, {'step': 10, 'grad_norm': float('inf')}, {'step': 15, 'grad_norm': float('-inf')}]
+    def train_with_nonfinite(root, rank, rows):
+        model, tok, metrics = original_train(root, rank, rows)
+        metrics['training_log_history'] = logs
+        return model, tok, metrics
+    backend.train_rank = train_with_nonfinite
+    runner.run(['b4'])
+    raw_text = (experiment.root / 'bonus_results/rank_sweep.json').read_text()
+    raw = json.loads(raw_text, parse_constant=lambda value: (_ for _ in ()).throw(ValueError(value)))
+    assert raw['status'] == 'complete'
+    assert raw['ranks']['8']['training_log_history'][0]['grad_norm'] == 'NaN'
+    assert raw['ranks']['8']['effective_optimizer_updates'] is None
+    assert 'unmeasured' in raw['ranks']['8']['effective_optimizer_updates_caution'].lower()
+    assert raw['nonfinite_serialization']['count'] == 6
+    assert any(entry['path'] == '$.ranks.8.training_log_history[0].grad_norm' and entry['value'] == 'NaN' for entry in raw['nonfinite_serialization']['entries'])
+    assert raw['nonfinite_serialization']['counts'] == {'NaN': 2, '+Infinity': 2, '-Infinity': 2}
+    assert logs[0]['grad_norm'] != logs[0]['grad_norm']  # Source logs retain original numeric NaN.

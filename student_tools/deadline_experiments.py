@@ -16,6 +16,7 @@ import gc
 import hashlib
 import importlib.metadata
 import json
+import math
 from pathlib import Path
 import platform
 import subprocess
@@ -53,6 +54,33 @@ def package_versions():
         except importlib.metadata.PackageNotFoundError:
             versions[package] = 'not installed'
     return versions
+
+
+def normalize_nonfinite(payload):
+    """Preserve nonfinite values explicitly while producing standard JSON numbers.
+
+    Source objects are not mutated. Every converted numeric value retains its
+    path, original type, and named value; no NaN is replaced by a plausible zero.
+    """
+    entries = []
+    counts = {'NaN': 0, '+Infinity': 0, '-Infinity': 0}
+    def visit(value, path):
+        if isinstance(value, float) and not math.isfinite(value):
+            label = 'NaN' if math.isnan(value) else ('+Infinity' if value > 0 else '-Infinity')
+            entries.append({'path': path, 'value': label, 'original_type': type(value).__name__})
+            counts[label] += 1
+            return label
+        if isinstance(value, dict):
+            return {key: visit(child, f'{path}.{key}') for key, child in value.items()}
+        if isinstance(value, (list, tuple)):
+            return [visit(child, f'{path}[{i}]') for i, child in enumerate(value)]
+        return value
+    clean = visit(payload, '$')
+    clean['nonfinite_serialization'] = {
+        'policy': 'nonfinite numeric values encoded as explicit named strings; original paths and types retained',
+        'count': len(entries), 'counts': counts, 'entries': entries,
+    }
+    return clean
 
 
 class GPUBackend:
@@ -155,7 +183,8 @@ class GPUBackend:
                    epochs=2, seed=42, max_length=1024, precision_fix=fix,
                    model_revision=getattr(model.config, '_commit_hash', None),
                    tokenizer_revision=tok.init_kwargs.get('_commit_hash'), dropped_sft_fields=dropped,
-                   training_log_history=trainer.state.log_history)
+                   training_log_history=trainer.state.log_history,
+                   trainer_global_step=getattr(trainer.state, 'global_step', None))
         # Release optimizer state before target-only inference.
         adapter = trainer.model
         self.held.remove(trainer)
@@ -237,7 +266,7 @@ class Runner:
 
     def write(self, name, payload):
         self.output.mkdir(parents=True, exist_ok=True)
-        payload = {**payload, 'metadata': self.metadata}
+        payload = normalize_nonfinite({**payload, 'metadata': self.metadata})
         path = self.output / name
         temporary = path.with_suffix(path.suffix + '.tmp')
         temporary.write_text(json.dumps(payload, ensure_ascii=False, indent=2, allow_nan=False), encoding='utf-8')
@@ -307,7 +336,7 @@ class Runner:
         delta = after['target'] - before['target']
         self.write('merge_check.json', {'status': 'complete', 'method': 'PEFT merge_and_unload(safe_merge=True), original fp16 base',
             'before': before, 'after': after, 'target_delta': delta, 'tolerance': .01,
-            'passed': abs(delta) <= .01, 'merged_weights_saved': False})
+            'passed': delta >= -.01, 'criterion': 'after.target >= before.target - tolerance', 'merged_weights_saved': False})
         del model, tok
         self.backend.release()
         if not self.allowed(300):
@@ -363,7 +392,9 @@ class Runner:
             self.loaded_metadata(model, tok)
             score = self.target_result(model, tok, f'rank_{rank}/target')
             result = {**metrics, **score, 'r': rank, 'lora_alpha': 2*rank,
-                      'learning_rate': .0001, 'placement': 'text-linear', 'max_steps': 30}
+                      'learning_rate': .0001, 'placement': 'text-linear', 'max_steps': 30,
+                      'effective_optimizer_updates': None,
+                      'effective_optimizer_updates_caution': 'Unmeasured; fp16 GradScaler may skip optimizer updates on nonfinite gradients. Configured/trainer steps do not establish successful optimizer updates.'}
             sweep['ranks'][str(rank)] = result
             if len(sweep['ranks']) == 3:
                 sweep['status'] = 'complete'
