@@ -2,7 +2,7 @@
   "format": "rubric Option A",
   "root_directory": "lab21_2A202602672",
   "model_verdict": "FAILED",
-  "rubric_3_4": "not satisfied: 0 target losses",
+  "rubric_3_4": "7 target and 3 supplementary regression examples, including 3 regression losses; 0 target losses; instructor grading not guaranteed",
   "student_reflection": "requires student reading/confirmation",
   "zip_name": "lab21_2A202602672_submission_core.zip",
   "exclusions": [
@@ -16,13 +16,13 @@
   "files": [
     {
       "path": "submission/REPORT.md",
-      "bytes": 26897,
-      "sha256": "5a021b0a77e04186421095497362127a8c0062fe14268dfe5a515203b8b9e81e"
+      "bytes": 31810,
+      "sha256": "2064a9639874f5bc855b447683749993bafaae186c5329eb92c4007fe070c522"
     },
     {
       "path": "submission/READINESS.md",
-      "bytes": 5042,
-      "sha256": "0fc76bc17bc6994489d12b421f45e466769362138d47d47e642bc693cc15e8f0"
+      "bytes": 5366,
+      "sha256": "6fdf10fb4c4389bc71cebba8f7920d42fed4c6b292b07fd44735746ff0eaee69"
     },
     {
       "path": "results/adapter_finiteness.json",
@@ -238,6 +238,41 @@
       "path": "results/received_checkpoints.json",
       "bytes": 7432,
       "sha256": "b012944e484b27777a408b4d90510e48f8fad0f52625f69b1166b45c4fe9f80a"
+    },
+    {
+      "path": "results/regression_complete_evidence_audit.json",
+      "bytes": 6642,
+      "sha256": "d4424cac6c8eedddf39adf182228031cf8cc3673d0561692a738bbba37b5b645"
+    },
+    {
+      "path": "results/regression_complete_helper_receipt.json",
+      "bytes": 220,
+      "sha256": "ef2fab390567d5c13e77626ba0df9fccb3849517ac50013412ce5f31226c84f9"
+    },
+    {
+      "path": "results/regression_complete_received_checkpoint.json",
+      "bytes": 1578,
+      "sha256": "3c90ed8ddfb92c9fc2c3996b3d9ad800e7fb288c2c8c98c70448b634cc4dc0c2"
+    },
+    {
+      "path": "results/regression_complete_regression_20261007T181759020649Z.txt",
+      "bytes": 6113,
+      "sha256": "e8781e2a5933710a84a1a320183977508c32578071b332d6f4991be049b0cce8"
+    },
+    {
+      "path": "results/regression_complete_run_status.json",
+      "bytes": 4512,
+      "sha256": "46990cd020f3146856194c2ab7bc8ea45248a0544baf9ad922d5bd6b73f72410"
+    },
+    {
+      "path": "results/regression_complete_stage_status.json",
+      "bytes": 4503,
+      "sha256": "3227920bba98353ad20cb19397d3466e60d3d01ffdbc44c4452872dc6e1f9c13"
+    },
+    {
+      "path": "results/regression_followup.json",
+      "bytes": 18072,
+      "sha256": "8075e6fa00ec6db76a9f9be4976576d3d4ab196b4b77e1b56b264b6599cbfc43"
     },
     {
       "path": "results/runs.csv",
