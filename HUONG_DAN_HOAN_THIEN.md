@@ -19,9 +19,8 @@ Cửa sổ mặc định2giờ từ ô khai báo hàm, không theo hạn ngày07
 trước khi khai báo nếu cần. Mỗi setup tạo attempt mới; không chạy lại setup khi stage
 đang hoạt động. Nếu ô đỏ, giữ ZIP và dừng bước phụ thuộc; không coi tảiZIP là thành công.
 
-Core rubric còn3.4(≥2caseFTthua cóoutput) và học viên xác nhận phản tư4.4.
-Regression có thể cung cấp ví dụ thuộc nhómregression; việc áp dụng3.4 cần diễn giải
-đúng rubric, không cam kết điểm khi chưa có output và chấm của giảng viên.
+Regression mới đã complete:15câu,7FTthua,1thắng,7hòa. Báo cáo đã có3ví dụ thua regression; không gọi thành target loss. Học viên vẫn cần xác nhận phản tư4.4.
+Nếu runtime hiện tại còn kết nối, chạy tiếp bước5: run_stage('b1'), rồi bước6: run_stage('b4'). Không chạy lại setup hoặc regression chỉ vì vừa gửiZIP.
 
 Các bonus khác: B2đã có240train60eval vàCUSTOM_DATASET.md nhưng cần ràsoát chấtlượng;
 rubricB2không bắt buộctrainriêng. B3cần dữliệutrace,2runmask vàvalid_trace_rate; chưa có

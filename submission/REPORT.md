@@ -8,7 +8,7 @@
 
 **Nhánh:** feature/lab21-finetuning · **Commit chạy GPU:** `90679f91842e9f42c9192b9c5eab316935705e9c`
 
-> Core NB1–NB5 đã chạy đầy đủ. Adapter correct tăng target từ 0,765 lên 0,970 nhưng regression giảm từ 0,791111 xuống 0,522222, nên cổng hồi quy kết luận **FAILED**. Đây là kết quả thí nghiệm, không phải lỗi chạy notebook. Tập target có 33 ca FT thắng, 17 hòa, **0 ca thua**: yêu cầu ≥2 ca thua của rubric 3.4 chưa được chứng minh. Không thay eval hoặc tạo ví dụ để lấp thiếu hụt này.
+> Core NB1–NB5 đã chạy đầy đủ. Adapter correct tăng target từ 0,765 lên 0,970 nhưng regression giảm từ 0,791111 xuống 0,522222, nên cổng hồi quy kết luận **FAILED**. Đây là kết quả thí nghiệm, không phải lỗi chạy notebook. Tập target có 33 ca FT thắng, 17 hòa, **0 ca thua**: Phép đo regression bổ sung ngày08/10 có 7 ca FT thua; mục13 lưu ba ví dụ nguyên văn để bổ sung bằng chứng cho rubric3.4. Các ví dụ thuộc tập regression, không phải target; không thay eval hoặc verdict core.
 
 ## 1. Bài toán, model và dữ liệu
 
@@ -85,11 +85,11 @@ Các log train có một số grad_norm=nan. Loss cuối đều finite; kiểm t
 
 Nguồn: baselines_frozen.json và verdict.json. Số hiển thị ở comparison được làm tròn; baseline regression chính xác là 0,7911111111 và FT regression suy từ delta đã lưu là 0,5222222222. Baseline (b) vượt (a) trên target trước training. Output (a) được lưu cho thấy model trả lời diễn giải dạng văn bản thay vì JSON bốn trường; vì vậy điểm target/format bằng 0 không chứng minh base thiếu hiểu biết về nội dung ticket. Hai baseline đo regression với cùng instruction và không có system prompt nên đạt cùng điểm regression.
 
-**Verdict: FAILED.** Target tăng tuyệt đối 0,205, format giữ 1,0, nhưng regression giảm 0,268888889, vượt tolerance 0,020 của gate. Correct phải đạt đồng thời điều kiện tác vụ và giới hạn suy giảm năng lực chung; lợi ích phân loại không bù được vi phạm hồi quy theo luật đã đóng băng. Cổng được tính lại từ metric đã ghi, không thay tolerance để chuyển FAIL thành PASS. Latency tăng khoảng 32,3% so với (b), dù prompt của FT ngắn hơn; đây là quan sát của lần đo, chưa đủ để quy toàn bộ chênh lệch cho adapter vì có nhiễu GPU và không có repeated latency runs. Regression chỉ gồm 15 câu chấm bằng keyword recall, nên kết quả là dấu hiệu suy giảm trong bộ kiểm tra này, không khái quát thành model mất mọi năng lực chung. Cần đọc raw completions và thí nghiệm replay riêng trước khi quyết định triển khai. NB5 đã đo regression FT nhưng không lưu từng completion, vì vậy chưa thể minh họa các ca thua regression ở mức từng câu từ bộ artifact hiện có. Không tự tạo output đó từ điểm trung bình.
+**Verdict: FAILED.** Target tăng tuyệt đối 0,205, format giữ 1,0, nhưng regression giảm 0,268888889, vượt tolerance 0,020 của gate. Correct phải đạt đồng thời điều kiện tác vụ và giới hạn suy giảm năng lực chung; lợi ích phân loại không bù được vi phạm hồi quy theo luật đã đóng băng. Cổng được tính lại từ metric đã ghi, không thay tolerance để chuyển FAIL thành PASS. Latency tăng khoảng 32,3% so với (b), dù prompt của FT ngắn hơn; đây là quan sát của lần đo, chưa đủ để quy toàn bộ chênh lệch cho adapter vì có nhiễu GPU và không có repeated latency runs. Regression chỉ gồm 15 câu chấm bằng keyword recall, nên kết quả là dấu hiệu suy giảm trong bộ kiểm tra này, không khái quát thành model mất mọi năng lực chung. Cần đọc raw completions và thí nghiệm replay riêng trước khi quyết định triển khai. NB5 gốc không lưu từng completion regression FT. Lần đo bổ sung ở mục13 đã lưu đủ15 completion và tái tính bằng scorer gốc; đây là evidence của lần đo mới, không khôi phục output lịch sử NB5.
 
 ## 6. Ví dụ định tính trên cùng ticket và nhãn
 
-Toàn bộ 50 cặp: 33 thắng, 17 hòa và **0 thua** theo delta target. Phần dưới có bảy ví dụ, gồm cả ba ticket nằm trong nhóm FT kém nhất. Một FT output sai chưa phải ca thua baseline nếu baseline cũng sai hoặc sai nhiều hơn. Yêu cầu ≥2 ca FT thua của rubric 3.4 chưa được chứng minh; không gọi các ca hòa sai bên dưới là thua. Nếu bổ sung output regression bằng một lần đo khác, phải ghi rõ nguồn/lần đo và không coi chúng là ca thua trên 50 ticket target này.
+Toàn bộ 50 cặp: 33 thắng, 17 hòa và **0 thua** theo delta target. Phần dưới có bảy ví dụ, gồm cả ba ticket nằm trong nhóm FT kém nhất. Một FT output sai chưa phải ca thua baseline nếu baseline cũng sai hoặc sai nhiều hơn. Không gọi các ca hòa sai bên dưới là thua. Mục13 bổ sung ba ca thua trong phép đo regression riêng, có nguồn và thời điểm rõ ràng; tổng báo cáo có10ví dụ, gồm3ca FTthua regression. Số ca thua trên50ticket target vẫn là0.
 
 ### Ticket index 0 — thắng
 
@@ -256,11 +256,11 @@ Tôi dùng trợ lý AI để lập kế hoạch, bổ sung mã lưu evidence, k
 
 Colab smoke ghi **119 original tests passed**, không có skip. Kiểm thử cục bộ trong CPU venv gồm bộ gốc và student tests trước bàn giao: **175 passed, 3 skipped** (ba test cần PyTorch), theo prepared_tests.txt. Verify đầy đủ sau khi hoàn thiện report trả **26 passed, 1 warning, 0 failures**, exit 0; output lưu ở verify.txt. Bộ student tests cuối có **59 passed**, theo student_tests_final.txt. Cảnh báo duy nhất của verify là verdict model FAILED, được giải thích như trên. Verify không kiểm tra đủ yêu cầu hai ca thua của rubric 3.4; không suy ra đủ toàn bộ rubric chỉ từ exit 0.
 
-Các kiểm tra độc lập đã re-score raw baseline, từng cặp target và summary; kiểm tra full eval, step budget, ngân sách params, adapter provenance, safetensors header và toàn bộ giá trị trọng số. Raw FT regression không có nên không tuyên bố đã re-score metric đó từ completion; mới đối chiếu aggregate trong log/verdict. Những hạn chế revision=null, grad_norm=nan và thiếu hai ca target thua được giữ công khai.
+Các kiểm tra độc lập đã re-score raw baseline, từng cặp target và summary; kiểm tra full eval, step budget, ngân sách params, adapter provenance, safetensors header và toàn bộ giá trị trọng số. Raw FT regression của NB5 gốc không được lưu; aggregate gốc được đối chiếu log/verdict. Raw của lần đo bổ sung ngày08/10 đã được re-score toàn bộ15câu, khớp aggregate gốc, theo regression_complete_evidence_audit.json. Những hạn chế revision=null, grad_norm=nan và thiếu hai ca target thua được giữ công khai.
 
 Gói core chọn Option A: report, toàn bộ results, hai file adapter correct và notebook nguồn không chứa output. Adapter correct khoảng 129,93 MB thô (F32), nên ZIP lớn hơn ví dụ 5–15 MB trong rubric; đó là dung lượng thực, không phải full merged weights. Các adapter đối chứng giữ ngoài gói core nhưng có hash và bằng chứng trong results. Không đưa .env, token, .venv, model cache hoặc merged model vào ZIP. B1–B5 chưa có bằng chứng hoàn thành và không yêu cầu điểm thưởng. Gói local và nhánh GitHub không tự chứng minh đã nộp LMS.
 
-## 10. Chuẩn bị bổ sung trước hạn 23:30
+## 10. Lịch sử chuẩn bị bổ sung trước hạn 23:30
 
 Mã bổ sung và notebook phục hồi đã được kiểm tra/review, nhưng chưa chạy GPU. Bộ CPU gồm
 **201 passed, 3 skipped**, lưu tại results/supplementary_tests_cpu.txt; các skip cần PyTorch.
@@ -281,7 +281,7 @@ B5; B3 chưa thực hiện. Các công việc chuẩn bị này không chuyển 
 Trợ lý chưa chạy được Colab vì công cụ browser không khởi tạo; cần học viên mở notebook T4
 và cung cấp các ZIP mới. Không tuyên bố đã nộp LMS hoặc hoàn thành toàn bộ rubric.
 
-## 11. Kiểm tra ba ZIP bổ sung đã nhận
+## 11. Lịch sử kiểm tra ba ZIP incomplete lúc23:49
 
 Ba ZIP followup regression, B1 và B4 được nhận và kiểm tra CRC/hash, helper commit,
 context full50/15 và status. Cả ba đều ghi **incomplete**, với lý do
@@ -296,7 +296,7 @@ Mục3.4 vẫn chưa có hai output FT thua để phân tích. Mã ghi seal_unch
 Receipt và bản sao từng file được giữ trong results/followup_received_checkpoints.json
 và results/followup_*.json/txt. Core measured verdict FAILED và các bảng số liệu giữ nguyên.
 
-## 12. Sửa notebook supplementary ngày08/10/2026
+## 12. Lịch sử sửa notebook trước lần đo mới ngày08/10/2026
 
 Nguyên nhân ba attempt23:49 incomplete là mốc dừng tuyệt đối23:20 đã hết hạn.
 Notebook colab/Lab21_Deadline_Followup.ipynb đã đổi sang cửa sổ2giờ từ lúc khai báo
@@ -308,3 +308,91 @@ Các test mới được chạy với bản cũ:7fail3pass đúng các lỗi đ�
 Bộ toàn repo **211 passed, 3 skipped**, lưu results/notebook_recovery_tests_cpu.txt.
 Đây là kiểm tra mã CPU, chưa có thêm số đo GPU. Ba attemptincomplete và toàn bộ số
 liệu/baseline/verdict core giữ nguyên. Xem HUONG_DAN_HOAN_THIEN.md để chạy bổ sung.
+
+## 13. Regression supplementary repeat đã hoàn thành ngày08/10/2026
+
+Checkpoint `lab21_2A202602672_followup_regression_20261007T182142078064Z.zip` có CRC đạt, SHA256 `5887e88cec98955dc35685bcc1d552168393228fc626495d574e0f2dffeb566f`. Stage regression complete; runtime ghi seal_unchanged=true. Import local kiểm tra baseline/verdict/runs/cặp target, source, corpus và adapter không đổi. Nguồn core `90679f9`, helper `384a8ae`; helper Git blob SHA256 khớp receipt. Metadata ghi 18:17:59 UTC ngày07/10, tức01:17:59 ngày08/10 tại Việt Nam. Đây là kết quả bổ sung sau hạn23:30, không gọi là kết quả đã có trước hạn.
+
+Dùng adapter correct đã lưu, không train lại; context và phiên bản package khớp manifest gốc. Generation không system prompt, greedy, thinking=false, max_new_tokens=96, batch_size=4. Model/tokenizer revisions vẫn null, nên không chứng minh cùng historical Hub revision. Raw15cặp lưu ở results/regression_followup.json; toàn bộ instruction, keyword, thứ tự và baseline_b_pred khớp core, điểm/delta được tái tính bằng labkit.evaluate.keyword_recall.
+
+| Phép đo bổ sung | Giá trị |
+|---|---:|
+| Số câu | 15 |
+| Frozen baseline(b) regression | 0,7911111111 |
+| FT regression repeat | 0,5222222222 |
+| FT thua / thắng / hòa | 7 / 1 / 7 |
+| Latency repeat ms/item | 3161,7655 |
+
+Regression khớp aggregate core; latency trên chỉ thuộc lần đo mới, bảng core giữ1355,8ms/item. Các ca thua có index2,3,8,9,11,12,14. Ca thắng6 chịu ảnh hưởng giới hạn96token: baseline bị cắt trước1024. Keyword recall không đảm bảo tính đúng ngữ nghĩa; một câu có thể mất điểm vì thiếu keyword dù diễn đạt hợp lý (ví dụ14). Ba ví dụ dưới chọn lỗi đáp ứng instruction rõ ràng.
+
+### Regression index2 — FT thua trong lần đo bổ sung
+
+**Instruction:** 1 km bằng bao nhiêu mét?
+
+**Keywords gốc:** `["1000"]`
+
+**Frozen baseline(b), nguyên văn:**
+```text
+Trong hệ đo lường quốc tế, tiền tố "kilo" (ký hiệu là **km**) có nghĩa là **1000**. Do đó, 1 kilômét tương đương với 1000 mét.
+
+Kết quả: **1 km = 1000 m**.
+```
+
+**FT repeat, nguyên văn:**
+```text
+{"intent": "hoi_thong_tin", "urgency": "thap", "product": null, "sentiment": "trung_tinh", "intent_confidence": 0.95, "urgency_confidence": 0.98, "product_confidence": 0.0, "sentiment_confidence": 0.92}
+```
+
+Điểm(b)=1.00; FT=0.00; delta=-1.00. FT phân loại câu hỏi thành ticket JSON nhưng không đưa phép đổi1000m được yêu cầu.
+
+### Regression index9 — FT thua trong lần đo bổ sung
+
+**Instruction:** Một năm có bao nhiêu tháng?
+
+**Keywords gốc:** `["12"]`
+
+**Frozen baseline(b), nguyên văn:**
+```text
+Một năm bình thường có **12 tháng**.
+
+Cụ thể, các tháng trong năm là:
+1. Tháng 1
+2. Tháng 2
+3. Tháng 3
+4. Tháng 4
+5. Tháng 5
+6. Tháng 6
+7. Tháng 7
+8. Tháng 8
+9. Tháng 9
+10. Tháng 10
+11. Tháng 11
+12. Tháng
+```
+
+**FT repeat, nguyên văn:**
+```text
+{"intent": "hoi_thong_tin", "urgency": "thap", "product": null, "sentiment": "trung_tinh"}
+```
+
+Điểm(b)=1.00; FT=0.00; delta=-1.00. FT trả nhãn ticket thay vì trả lời12tháng. Baseline có đáp án dù phần liệt kê cuối bị cắt.
+
+### Regression index3 — FT thua trong lần đo bổ sung
+
+**Instruction:** Viết một câu chúc mừng sinh nhật bằng tiếng Việt.
+
+**Keywords gốc:** `["sinh nhật"]`
+
+**Frozen baseline(b), nguyên văn:**
+```text
+Chúc bạn một ngày sinh nhật thật vui vẻ, tràn đầy niềm vui và sức khỏe, cùng với những điều may mắn và hạnh phúc nhất trong năm mới!
+```
+
+**FT repeat, nguyên văn:**
+```text
+{"intent": "chuc_mung_sinh_nhat", "urgency": "trung_tinh", "product": null, "sentiment": "tich_cuc", "tone": "trang_trang"}
+```
+
+Điểm(b)=1.00; FT=0.00; delta=-1.00. FT gán nhãn chuc_mung_sinh_nhat nhưng không viết câu chúc. Keyword có dấu cách không khớp tên nhãn dùng dấu gạch dưới; đọc output cũng xác nhận instruction không được thực hiện.
+
+Rubric3.4 yêu cầu≥5ví dụ và≥2ca FTthua, không ghi giới hạn các ca thua vào tập target. Báo cáo có7ví dụ target và3ví dụ regression thua, với nguồn phân biệt rõ. Việc cho điểm thuộc giảng viên. Mục4.4 vẫn cần học viên đọc/chỉnh/xác nhận phản tư. B1/B4 chưa có kết quả trong checkpoint này; B2cần rà soát chất lượng, B3chưa chạy, B5chưa upload và chưa xác nhận nộp LMS.

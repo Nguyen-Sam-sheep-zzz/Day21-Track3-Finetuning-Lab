@@ -10,10 +10,10 @@ Cập nhật theo bốn checkpoint Colab ngày 07/10/2026. Commit thực nghiệ
 | NB3 | Hoàn thành | Correct: 32.464.896 tham số; 30 step; loss 0,6256; 8,78 GB; 416,3 giây |
 | NB4 | Hoàn thành | Ba đối chứng đủ; cùng max_steps=30; attn_only rank=283, lệch tham số 0,025233% |
 | NB5 | Hoàn thành | Target 0,97; regression 0,522222; format 1; latency 1355,8 ms; model FAILED |
-| Report | Đã biên tập và review số liệu | Bảy ví dụ thật, kết luận 386 từ; học viên cần xác nhận phản tư |
+| Report | Đã cập nhật core và regression repeat | 10ví dụ thật gồm3regression thua; kết luận386từ; học viên cần xác nhận phản tư |
 | Verify | Hoàn thành | 26 đạt, 1 cảnh báo, 0 lỗi; 59 student tests đạt; original CPU 116 đạt, 3 skip |
-| Rubric 3.4 | Chưa đủ bằng chứng | Target: 33 thắng, 17 hòa, 0 thua; chưa có hai ca thua định tính |
-| Gói core | Đã kiểm tra | output/lab21_2A202602672_submission_core.zip, 120,17 MB; hash/CRC, cấu trúc và loại trừ đều đạt |
+| Rubric 3.4 | Có ví dụ bổ sung đúng nguồn | 3ca regression repeat thua; target vẫn33thắng17hòa0thua; giảng viên chấm |
+| Gói core | Đã kiểm tra | output/lab21_2A202602672_submission_core.zip, kèm regression repeat; hash/CRC, cấu trúc và loại trừ đều đạt |
 | B1/B4 | Mã và notebook bổ sung đang kiểm tra | Chưa có measurement GPU; không nhận điểm |
 | B2 | Soạn draft synthetic riêng | Chất lượng người đọc chưa xác nhận |
 | B3 | Chưa chạy | Cần trace và hai run riêng |
@@ -39,3 +39,5 @@ nguyên trạng trong results/followup_*. Core không đổi; rubric3.4, bonus v
 giới hạn đã công bố. Không tuyên bố ZIP được tạo nghĩa là phép đo đã hoàn thành.
 
 Cập nhật08/10: notebook supplementary đã sửa mốc dừng cố định thành cửa sổ2giờ và kiểm tra file thực tế trước khi báo HOÀN TẤT. 211 CPUtests đạt,3skip; chưa có measurement mới. Chạy theo HUONG_DAN_HOAN_THIEN.md.
+
+Cập nhật sau checkpoint01:21ngày08/10: regression complete đủ15câu; re-score7loss/1win/7tie, metric0,522222 khớp core. Report đã thêm3ví dụ thua, tổng10ví dụ. B1/B4chờ đo; phản tư4.4vànộpLMS cần học viên thực hiện. Các đoạn incomplete/phục hồi phía trên là lịch sử trước checkpoint mới.

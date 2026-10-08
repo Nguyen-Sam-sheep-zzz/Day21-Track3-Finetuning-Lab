@@ -2,7 +2,7 @@
 
 Nguyễn Nhân Sâm · 2A202602672 · thí nghiệm 07/10/2026.
 
-**Số liệu đã kiểm tra; verdict FAILED được phân tích đúng. Chưa đủ mọi mục rubric: 3.4 chưa có hai ca FT thua; 4.4 cần học viên đọc và xác nhận phản tư.** Không cam kết tổng điểm hoặc kết quả chấm.
+**Core và regression repeat đã kiểm tra; report có10ví dụ, gồm3ca FTthua regression ở mục13. Mục4.4 cần học viên đọc và xác nhận phản tư; bonus và nộp LMS chưa hoàn tất.** Không cam kết tổng điểm hoặc kết quả chấm.
 
 | Mục | Trạng thái bằng chứng | File hoặc nhận xét |
 |---|---|---|
@@ -15,12 +15,12 @@ Nguyễn Nhân Sâm · 2A202602672 · thí nghiệm 07/10/2026.
 | 2.3 Một yếu tố | Có thiết kế và phân tích | Placement kèm rank/alpha bù budget; LR ÷10; base 4-bit; mask đối chứng đối chiếu source/log |
 | 2.4 Placement/rank | Đủ phân tích | Correct và attn_only đều 0,97; không xếp hạng bằng loss |
 | 3.1 Baseline | Đủ bằng chứng nhất quán | b=0,765 > a=0; đo trước training; baseline bất biến qua bốn checkpoint |
-| 3.2 Bốn nhóm | Đủ aggregate | Target, regression, format, latency; NB5 chưa lưu raw FT regression |
+| 3.2 Bốn nhóm | Đủ aggregate và raw bổ sung | NB5 gốc chưa lưu raw FT regression; repeat đủ15câu đã re-score, không thay metric core |
 | 3.3 Verdict | Đủ | FAILED vì regression giảm 0,268889 vượt tolerance 0,02; gate giữ nguyên |
-| 3.4 Định tính | CHƯA ĐỦ | Bảy ví dụ thật; 33 thắng, 17 hòa, 0 thua; không bịa hai ca thua |
+| 3.4 Định tính | Có≥5ví dụ và≥2ca thua, phạm vi đã ghi rõ | 7target + 3regression repeat thua; target vẫn33thắng17hòa0thua; không cam kết điểm giảng viên |
 | 4.1 Cấu trúc | Đã biên tập | Model/dataset, lý do, mask, baseline, đối chứng, verdict, phản tư |
 | 4.2 Kết luận | Đủ độ dài | 386 từ theo whitespace; có lập luận và giới hạn |
-| 4.3 Số liệu | Đã kiểm tra và review | Raw baseline/cặp target re-score; bảng và bảy ví dụ khớp; aggregate regression đối chiếu log |
+| 4.3 Số liệu | Đã kiểm tra | Raw baseline/target và15regression repeat re-score;10ví dụ khớp; metric core giữ nguyên |
 | 4.4 Phản tư | Học viên cần xác nhận | Soạn từ thao tác và kết quả thật; AI hỗ trợ được khai báo |
 | B1 merge/hot-swap | Chuẩn bị mã, chưa chạy GPU | Helper và notebook bổ sung; không yêu cầu điểm thưởng |
 | B2 dataset riêng | Có bản nháp synthetic riêng | Chưa xác nhận chất lượng thủ công; không tự nhận hoàn thành |
@@ -32,7 +32,7 @@ Verify local: 26 đạt, 1 cảnh báo, 0 lỗi, exit 0; cảnh báo model FAILE
 
 Gói Option A chứa submission/REPORT.md, READINESS.md, toàn bộ results, hai file adapter correct và notebooks/*.py. Gói tối giản không cam kết tự chạy verify độc lập; checkout đầy đủ giữ scripts/src/data để kiểm tra. Không có full weights, .env, .venv, cache hoặc adapter đối chứng. Adapter correct F32 có dung lượng thô 129,93 MB; ZIP khoảng 120 MB, lớn hơn ví dụ 5–15 MB trong rubric.
 
-Nếu bổ sung ví dụ regression, dùng notebook local output/Lab21_Regression_Followup.ipynb, upload ZIP after_correct gốc và tải regression_followup.json. Notebook này chưa chạy GPU; đây là phép đo bổ sung. Không thay baseline/verdict core hoặc gọi regression loss thành target loss. Cần giảng viên xác nhận cách áp dụng 3.4 khi tập target thực có 0 ca thua.
+Regression repeat đã complete; xem REPORT mục13 và results/regression_complete_evidence_audit.json. Output mới là supplementary, không phải rawNB5gốc. Model/tokenizer revisions vẫnnull. B1/B4chờ checkpoint mới.
 
 Học viên trực tiếp nộp LMS hoặc đường dẫn theo yêu cầu lớp. Gói local và remote branch không đồng nghĩa đã nộp bài.
 
@@ -43,4 +43,6 @@ mốc dừng23:20; chỉ có log/status, chưa thực hiện regression/B1/B4. �
 nguyên trạng trong results/followup_*. Core không đổi; rubric3.4, bonus và phản tư còn
 giới hạn đã công bố. Không tuyên bố ZIP được tạo nghĩa là phép đo đã hoàn thành.
 
-Cập nhật08/10: notebook supplementary đã sửa mốc dừng cố định thành cửa sổ2giờ và kiểm tra file thực tế trước khi báo HOÀN TẤT. 211 CPUtests đạt,3skip; chưa có measurement mới. Chạy theo HUONG_DAN_HOAN_THIEN.md.
+Lịch sử trước lần đo mới: cập nhật08/10, notebook supplementary đã sửa mốc dừng cố định thành cửa sổ2giờ và kiểm tra file thực tế trước khi báo HOÀN TẤT. 211 CPUtests đạt,3skip; chưa có measurement mới. Chạy theo HUONG_DAN_HOAN_THIEN.md.
+
+Cập nhật sau checkpoint01:21ngày08/10: regression complete đủ15câu; re-score7loss/1win/7tie, metric0,522222 khớp core. Report đã thêm3ví dụ thua, tổng10ví dụ. B1/B4chờ đo; phản tư4.4vànộpLMS cần học viên thực hiện. Các đoạn incomplete/phục hồi phía trên là lịch sử trước checkpoint mới.

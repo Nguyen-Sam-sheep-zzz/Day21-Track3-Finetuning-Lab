@@ -9,7 +9,7 @@ không đồng nghĩa bài lab thất bại. Target0,97 cao hơn baseline0,765, 
 |---|---|
 | Đọc/import/re-score checkpoints | Hoàn thành; nguồn90679f9, raw baseline bất biến |
 | Báo cáo core và7ví dụ | Hoàn thành biên tập; phản tư phải được học viên đọc/xác nhận |
-| ≥2ca FT thua | Chưa đủ;50target có0loss. Notebook mới đo regression, cần diễn giải rubric |
+| ≥2ca FT thua | Đã bổ sung sau hạn:3ví dụ regression repeat thua; target0loss giữ nguyên |
 | Verify và ZIP core | Đã kiểm tra;26pass1warning0fail, warning là model FAILED |
 | B1/B4 | Có mã/notebook reviewed; chờ GPU, không claim điểm |
 | B2 | Draft synthetic240 train + 60 held-out đã qua QA cơ học; chưa có xác nhận chất lượng thủ công |
@@ -34,3 +34,5 @@ Kiểm tra mã bổ sung cuối: 201 passed, 3 skipped (results/supplementary_te
 mốc dừng23:20; chỉ có log/status, chưa thực hiện regression/B1/B4. Đã kiểm tra và lưu
 nguyên trạng trong results/followup_*. Core không đổi; rubric3.4, bonus và phản tư còn
 giới hạn đã công bố. Không tuyên bố ZIP được tạo nghĩa là phép đo đã hoàn thành.
+
+Cập nhật sau checkpoint01:21ngày08/10: regression complete đủ15câu; re-score7loss/1win/7tie, metric0,522222 khớp core. Report đã thêm3ví dụ thua, tổng10ví dụ. B1/B4chờ đo; phản tư4.4vànộpLMS cần học viên thực hiện. Các đoạn incomplete/phục hồi phía trên là lịch sử trước checkpoint mới.
